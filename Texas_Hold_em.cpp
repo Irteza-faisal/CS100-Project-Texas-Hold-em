@@ -16,8 +16,21 @@ int main(){
         cout<<"-->";
         cin>>game;    
         while(!validgamechoice(game)){
+            cout<<"-->";
             cin>>game;
+            cin.clear();
         }
+
+        if (game == 1){
+            start_game();
+        }
+        else if (game == 2){
+            show_rules();
+        }
+        else{
+            break;
+        }
+
         
 
         
