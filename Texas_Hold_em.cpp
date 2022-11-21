@@ -14,26 +14,7 @@ int main(){
             <<"\t 2:Rules\n"
             <<"\t-1:Exit\n";
         cout<<"-->";
-        cin>>game;    
-        while(!validgamechoice(game)){
-            cout<<"-->";
-            cin>>game;
-            cin.clear();
-        }
-
-        if (game == 1){
-            start_game();
-        }
-        else if (game == 2){
-            show_rules();
-        }
-        else{
-            break;
-        }
-
-        
-
-        
+        cin>>game;   
     }
     return 0;
 }
