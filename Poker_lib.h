@@ -1,4 +1,5 @@
 using namespace std;
+#include<iostream>
 
 class POKER {
     public:
@@ -35,33 +36,41 @@ class POKER {
 
     void rules(){
         cout<<"RULES???WHERE RULES???NO RULES.\n";
-        cout<<"TOO MUCH TYPING FOR RULES, HERE TAKE SUITS {\"suite\",\"Number/JQKA\"}";
-        cout<<"SUBHANI WRITE THE RULES HERE PLS.";
+        cout<<"TOO MUCH TYPING FOR RULES, HERE TAKE SUITS {\"suite\",\"Number/JQKA\"}\n";
+        cout<<"SUBHANI WRITE THE RULES HERE PLS.\n";
     }
 
     void rules_suites(){
-
+        cout<<"SUITES LIKH DO IDHAR MERI JAAN\n";
     }
 
     void change_gamestate_mainmenu(){
-        if (game_state = 1){
-            POKER::choose_number_of_players();
+        if (game_state == 1){
+            choose_number_of_players();
         }
-        else if (game_state = 2){
-            POKER::rules();
+        else if (game_state == 2){
+            rules();
         }
     }
 
     void change_gamestate_rules(){
         if (game_state == 1){
-            POKER::rules_suites();
+            rules_suites();
         }
         else if (game_state == 0){
-            POKER::INIT();
+            INIT();
         }
     }
 
-    
+    void change_gamestate_start_substate(){  /*Is this efficient? probably not? Do I care? Definetly not.*/
+        if (game_state == 1) {
+
+        }
+    }
+
+    void test(){
+        cout<<game_state;
+    }
 
     void INIT(){
         cout<<setw(125)<<"<----WELCOME TO POKER TEXAS HOLD'EM---->\n";
@@ -69,9 +78,8 @@ class POKER {
         do{
             cout<<"-->";
             cin>>game_state;
-        }while(game_state != 1 || game_state != 2 || game_state != -1 );
-        
-        POKER::change_gamestate_mainmenu();
+        }while(game_state < -1 || cin.fail() || game_state > 2);
+        change_gamestate_mainmenu();
 
     }
 
