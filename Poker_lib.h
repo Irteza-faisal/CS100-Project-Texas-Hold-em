@@ -36,7 +36,11 @@ class POKER {
     void rules(){
         cout<<"RULES???WHERE RULES???NO RULES.\n";
         cout<<"TOO MUCH TYPING FOR RULES, HERE TAKE SUITS {\"suite\",\"Number/JQKA\"}";
-        cout<<"";
+        cout<<"SUBHANI WRITE THE RULES HERE PLS.";
+    }
+
+    void rules_suites(){
+
     }
 
     void change_gamestate_mainmenu(){
@@ -46,7 +50,13 @@ class POKER {
         else if (game_state = 2){
             POKER::rules();
         }
-        else if (game_state = 0){
+    }
+
+    void change_gamestate_rules(){
+        if (game_state == 1){
+            POKER::rules_suites();
+        }
+        else if (game_state == 0){
             POKER::INIT();
         }
     }
