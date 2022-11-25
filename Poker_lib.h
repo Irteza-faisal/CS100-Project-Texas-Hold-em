@@ -29,6 +29,30 @@ class POKER {
         }
     }
 
+    void choose_number_of_players(){
+
+    }
+
+    void rules(){
+        cout<<"RULES???WHERE RULES???NO RULES.\n";
+        cout<<"TOO MUCH TYPING FOR RULES, HERE TAKE SUITS {\"suite\",\"Number/JQKA\"}";
+        cout<<"";
+    }
+
+    void change_gamestate_mainmenu(){
+        if (game_state = 1){
+            POKER::choose_number_of_players();
+        }
+        else if (game_state = 2){
+            POKER::rules();
+        }
+        else if (game_state = 0){
+            POKER::INIT();
+        }
+    }
+
+    
+
     void INIT(){
         cout<<setw(125)<<"<----WELCOME TO POKER TEXAS HOLD'EM---->\n";
         cout<<"1:Start Game.\n2:Rules.\n-1:Exit.\n";
@@ -41,8 +65,6 @@ class POKER {
 
     }
 
-    void change_gamestate_mainmenu(){
-
-    }
+    
 };
 
