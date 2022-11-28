@@ -30,18 +30,39 @@ class POKER {
         }
     }
 
-    void choose_number_of_players(){
-
+    void main_game_3bots(){
+        
     }
 
+    void choose_number_of_players(){
+        /*Deliverable 3 for it just executes the setup for 1 vs 1 vs 1 vs 1*/
+        main_game_3bots();
+    }
+
+
+
     void rules(){
+
+        game_state = 0;
         cout<<"RULES???WHERE RULES???NO RULES.\n";
         cout<<"TOO MUCH TYPING FOR RULES, HERE TAKE SUITS {\"suite\",\"Number/JQKA\"}\n";
         cout<<"SUBHANI WRITE THE RULES HERE PLS.\n";
+
+        do{
+            cout<<"-->";
+            cin>>game_state;
+        }while(game_state != 1 || game_state != 0);
+        change_gamestate_rules();
     }
 
     void rules_suites(){
         cout<<"SUITES LIKH DO IDHAR MERI JAAN\n";
+        do{
+            cout<<"-->";
+            cin>>game_state;
+        }while(game_state != 0);
+
+        change_gamestate_rules();
     }
 
     void change_gamestate_mainmenu(){
