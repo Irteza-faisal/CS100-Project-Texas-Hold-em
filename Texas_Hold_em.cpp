@@ -1,7 +1,7 @@
 /*<---Initial Declarations--->*/
 #include <iostream>
 #include <iomanip>
-#include "Poker_lib.h"
+#include "Poker_main.h"
 using namespace std;
 
 /*<---Main Function--->*/
