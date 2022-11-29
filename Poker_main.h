@@ -1,5 +1,7 @@
 using namespace std;
 #include<iostream>
+#include<iomanip>
+#include<random>
 
 class POKER {
     public:
@@ -13,9 +15,17 @@ class POKER {
     typedef struct {
         int Number;
         char suit;
+        bool exists = true;
     }card;
 
     card cards[52];
+
+    card draw_card(){
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> distr(0,51);
+        int card_index = distr(gen); 
+    }
 
     void init_deck(){ /*Initialises deck*/
         int n = 0;
@@ -38,8 +48,6 @@ class POKER {
         /*Deliverable 3 for it just executes the setup for 1 vs 1 vs 1 vs 1*/
         main_game_3bots();
     }
-
-
 
     void rules(){
 
@@ -89,10 +97,6 @@ class POKER {
         }
     }
 
-    void test(){
-        cout<<game_state;
-    }
-
     void INIT(){
         cout<<setw(125)<<"<----WELCOME TO POKER TEXAS HOLD'EM---->\n";
         cout<<"1:Start Game.\n2:Rules.\n-1:Exit.\n";
@@ -104,6 +108,16 @@ class POKER {
 
     }
 
-    
+    class BOTAI {
+        public:
+            card hand[2];
+            int confidence;
+
+            void assign_hand(){
+
+            } 
+
+
+    };
 };
 
