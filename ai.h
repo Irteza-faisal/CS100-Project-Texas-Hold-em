@@ -95,5 +95,8 @@ int confidence(POKER cards[5],int numofcards)
             break;
         }
     }
-    if ()
+    if (three_of_a_kind && pair)
+    {
+        full_house = true;
+    }
 }

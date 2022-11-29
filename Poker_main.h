@@ -58,8 +58,35 @@ class POKER {
         game_state = 0;
         cout<<"RULES???WHERE RULES???NO RULES.\n";
         cout<<"TOO MUCH TYPING FOR RULES, HERE TAKE SUITS {\"suite\",\"Number/JQKA\"}\n";
-        cout<<"SUBHANI WRITE THE RULES HERE PLS.\n";
-
+        cout<<"So, what is texas holdem?\n"
+            <<"simple, all you have to do is make a combo of 5 cards that is better than everyone else\n"
+            <<"see that is not so complex is it?\n\n"
+            <<"so lets get into the nitty gritty.\n"
+            <<"first round, everyone get dealt with 2 cards\n"
+            <<"a first round of \"betting\" happens, where you put in your money in the pot\n"
+            <<"after this community cards (cards anyone can use) are dealt\n\t"
+            <<"one card is dealt, the betting restarts\n\t"
+            <<"another card is dealt,betting restarts\n\t"
+            <<"another card is dealt,betting restarts\n\t"
+            <<"another card is dealt,betting restarts\n\t"
+            <<"last card is dealt, final betting happens\n\t"
+            <<"in this, if you stopped betting at any round, you can longer bet in the other rounds, as you have\'folded\'\n"
+            <<"in the end, if you have the best hand, congrats, you win the pot, if you don't have the best hand, well, you lose your bets\n"
+            <<"first to go broke loses, which automatically means im losing"
+            <<"\n\n"
+            <<"so hands, in order of power (descending):\n"
+            <<"Royal Flush — five cards of the same suit, ranked ace through ten\n\t"
+            <<"Straight Flush — five cards of the same suit and consecutively ranked\n\t"
+            <<"Four of a Kind — four cards of the same rank\n\t"
+            <<"Full House — three cards of the same rank and two more cards of the same rank\n\t"
+            <<"Flush — any five cards of the same suit\n\t"
+            <<"Straight — any five cards consecutively ranked\n\t"
+            <<"Three of a Kind — three cards of the same rank\n\t"
+            <<"Two Pair — two cards of the same rank and two more cards of the same rank\n\t"
+            <<"One Pair — two cards of the same rank\n\t"
+            <<"High Card — five unmatched cards\n"
+            <<"\n\n"
+            <<"hope this helps. if it didnt, check this site \"https://www.pokernews.com/poker-rules/texas-holdem.htm\"";
         do{
             cout<<"-->";
             cin>>game_state;
