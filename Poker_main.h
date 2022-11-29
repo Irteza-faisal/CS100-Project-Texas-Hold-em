@@ -56,8 +56,7 @@ class POKER {
     void rules(){
 
         game_state = 0;
-        cout<<"RULES???WHERE RULES???NO RULES.\n";
-        cout<<"TOO MUCH TYPING FOR RULES, HERE TAKE SUITS {\"suite\",\"Number/JQKA\"}\n";
+        
         cout<<"So, what is texas holdem?\n"
             <<"simple, all you have to do is make a combo of 5 cards that is better than everyone else\n"
             <<"see that is not so complex is it?\n\n"
@@ -74,19 +73,8 @@ class POKER {
             <<"in the end, if you have the best hand, congrats, you win the pot, if you don't have the best hand, well, you lose your bets\n"
             <<"first to go broke loses, which automatically means im losing"
             <<"\n\n"
-            <<"so hands, in order of power (descending):\n"
-            <<"Royal Flush — five cards of the same suit, ranked ace through ten\n\t"
-            <<"Straight Flush — five cards of the same suit and consecutively ranked\n\t"
-            <<"Four of a Kind — four cards of the same rank\n\t"
-            <<"Full House — three cards of the same rank and two more cards of the same rank\n\t"
-            <<"Flush — any five cards of the same suit\n\t"
-            <<"Straight — any five cards consecutively ranked\n\t"
-            <<"Three of a Kind — three cards of the same rank\n\t"
-            <<"Two Pair — two cards of the same rank and two more cards of the same rank\n\t"
-            <<"One Pair — two cards of the same rank\n\t"
-            <<"High Card — five unmatched cards\n"
-            <<"\n\n"
-            <<"hope this helps. if it didnt, check this site \"https://www.pokernews.com/poker-rules/texas-holdem.htm\"";
+            <<"hope this helps. if it didnt, check this site \"https://www.pokernews.com/poker-rules/texas-holdem.htm\""
+            <<"\n\n";
         do{
             cout<<"-->";
             cin>>game_state;
@@ -95,7 +83,16 @@ class POKER {
     }
 
     void rules_suites(){
-        cout<<"SUITES LIKH DO IDHAR MERI JAAN\n";
+        cout<<"Royal Flush — five cards of the same suit, ranked ace through ten\n\t"
+            <<"Straight Flush — five cards of the same suit and consecutively ranked\n\t"
+            <<"Four of a Kind — four cards of the same rank\n\t"
+            <<"Full House — three cards of the same rank and two more cards of the same rank\n\t"
+            <<"Flush — any five cards of the same suit\n\t"
+            <<"Straight — any five cards consecutively ranked\n\t"
+            <<"Three of a Kind — three cards of the same rank\n\t"
+            <<"Two Pair — two cards of the same rank and two more cards of the same rank\n\t"
+            <<"One Pair — two cards of the same rank\n\t"
+            <<"High Card — five unmatched cards, so you only consider the card with the highest rank.\n";
         do{
             cout<<"-->";
             cin>>game_state;
