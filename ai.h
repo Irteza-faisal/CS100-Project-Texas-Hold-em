@@ -95,8 +95,50 @@ int confidence(POKER cards[5],int numofcards)
             break;
         }
     }
+    for (int iiiiii ; iiiiii<numofcards ; iiiiii++)
+    {
+        if (cards->suits[iiiiii] == cards->suits[iiiiii+1])
+        {
+            flush = true;
+        }
+        else
+        {
+            flush = false;
+            break;
+        }
+    }
     if (three_of_a_kind && pair)
     {
         full_house = true;
     }
+    int confidenceperc = 60;
+    for (int iiiii = 0; iiiii<numofcards; iiiii++ )
+    {
+        confidenceperc=-5;
+    }
+    if (three_of_a_kind)
+    {
+        confidenceperc=+15;
+    }
+    if (four_of_a_kind)
+    {
+        confidenceperc=+15;
+    }
+    if (full_house)
+    {
+        confidenceperc=+15;
+    }
+    if (two_pair)
+    {
+        confidenceperc=+15;
+    }
+    if (flush)
+    {
+        for (int j = 0; j<numofcards; j++)
+        {
+            confidenceperc=+2;
+        }
+    }
+
+    return confidenceperc;
 }
