@@ -24,7 +24,11 @@ class POKER {
         random_device rd;
         mt19937 gen(rd());
         uniform_int_distribution<> distr(0,51);
-        int card_index = distr(gen); 
+        int card_index = distr(gen);
+        while (!(cards[card_index].exists)){
+            int card_index = distr(gen);
+        }
+        return cards[card_index]; 
     }
 
     void init_deck(){ /*Initialises deck*/
@@ -112,10 +116,6 @@ class POKER {
         public:
             card hand[2];
             int confidence;
-
-            void assign_hand(){
-
-            } 
 
 
     };
