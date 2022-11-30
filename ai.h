@@ -20,7 +20,7 @@ void sort_number(POKER cards[5], const int numofcards)
 }
 
 int confidence(POKER cards[5],int numofcards) 
-//cards 1 to 5, where card 0 and 1 are the cards dealt, cards 2, 3, 4 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
+//cards 1 to 5, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
 {
     bool pair = false;
     bool two_pair = false;
@@ -37,8 +37,6 @@ int confidence(POKER cards[5],int numofcards)
     copy (cards, cards+numofcards,sortedarray1);
 
     sort_number(sortedarray1,numofcards);
-
-    POKER sortedarray2[5];
 
     int samecards;
     //this number tells the number of cards that are the same, which dictates whether the ai has a pair, three of a kind, or four of a kind.
@@ -107,11 +105,33 @@ int confidence(POKER cards[5],int numofcards)
             break;
         }
     }
+    for (int iiiiiii ; iiiiiii<numofcards; iiiiiii++)
+    {
+        if (cards->Nums[iiiiiii] == cards->Nums[iiiiiii+1])
+        {
+            straight = true;
+        }
+        else;
+        {
+            straight = false;
+            break;
+        }
+
+    }
     if (three_of_a_kind && pair)
     {
         full_house = true;
     }
+    if (straight && flush)
+    {
+        if ((sortedarray1->Nums[1] == 10) && (sortedarray1->Nums[0] == 1))
+        {
+            royal_flush = true;
+        }
+    }
+
     int confidenceperc = 60;
+
     for (int iiiii = 0; iiiii<numofcards; iiiii++ )
     {
         confidenceperc=-5;
@@ -139,6 +159,9 @@ int confidence(POKER cards[5],int numofcards)
             confidenceperc=+2;
         }
     }
-
+    if (royal_flush)
+    {
+        confidenceperc+=50;
+    }
     return confidenceperc;
 }
