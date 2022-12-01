@@ -22,6 +22,7 @@ void sort_number(POKER cards[5], const int numofcards)
 int confidence(POKER cards[5],int numofcards) 
 //cards 1 to 5, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
 {
+    //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh.
     bool pair = false;
     bool two_pair = false;
     bool three_of_a_kind = false;
@@ -55,7 +56,7 @@ int confidence(POKER cards[5],int numofcards)
         for (int ii = i+1; ii<numofcards; ii++)
         {
         
-            if (cards->Nums[i] == cards->Nums[ii] )
+            if (sortedarray1->Nums[i] == cards->Nums[ii] )
             {
                 samecards++;
             }
