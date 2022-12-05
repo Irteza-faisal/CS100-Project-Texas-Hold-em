@@ -28,6 +28,7 @@ class POKER {
         while (!(cards[card_index].exists)){
             int card_index = distr(gen);
         }
+        cards[card_index].exists=false;
         return cards[card_index]; 
     }
 
@@ -69,13 +70,14 @@ class POKER {
             <<"another card is dealt,betting restarts\n\t"
             <<"another card is dealt,betting restarts\n\t"
             <<"last card is dealt, final betting happens\n\t"
-            <<"in this, if you stopped betting at any round, you can longer bet in the other rounds, as you have\'folded\'\n"
-            <<"in the end, if you have the best hand, congrats, you win the pot, if you don't have the best hand, well, you lose your bets\n"
+            <<"in this, if you stopped betting at any round, you can longer bet in the other rounds, as you have\'folded\'\n\t"
+            <<"in the end, if you have the best hand, congrats, you win the pot, if you don't have the best hand, well, you lose your bets\n\t"
             <<"first to go broke loses, which automatically means im losing"
             <<"\n\n"
             <<"hope this helps. if it didnt, check this site \"https://www.pokernews.com/poker-rules/texas-holdem.htm\""
             <<"\n\n";
         do{
+            cin.clear();
             cout<<"-->";
             cin>>game_state;
         }while(game_state != 1 || game_state != 0);
@@ -155,7 +157,7 @@ class POKER {
             //uses same function as inthegame [the playing function] to tell whether a bot is playing the round or not (if it has folded yet, or is continuing)
 
 
-    void sort_number(card cards[5], const int numofcards)
+            void sort_number(card cards[5], const int numofcards)
     {
         for (int i = 0; i<numofcards; i++)
         {
@@ -171,7 +173,7 @@ class POKER {
         }
     }
 
-    int confidencerating(card cards[5],int numofcards) 
+            int confidencerating(card cards[5],int numofcards) 
     //cards 1 to 5, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
         //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh.
@@ -324,7 +326,7 @@ class POKER {
         return confidenceperc;
     }
 
-    bool folding(int confidence_level)
+            bool folding(int confidence_level)
     {
         if (confidence_level > 50)
         {
@@ -336,7 +338,7 @@ class POKER {
         }
     }
     
-    bool playing(const int bank, bool fold)
+            bool playing(const int bank, bool fold)
     {
         if ((bank< 5))
         //is this function nearly pointless? yes it is, but id rather not write these 4 lines again and again.
