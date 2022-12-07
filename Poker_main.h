@@ -8,6 +8,7 @@ class POKER {
     int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,1,2,3,4,5,6,7,8,9,10,J,Q,K*/
     char suits[4] = {'D','H','C','S'};
     int game_state = 0;
+    bool player_playing = false;
     /*int Initial_game_states[3] = {1,2,-1}; Defines initial game states of Start game, Rules, Exit game, 1 starts game, 2 is rules, -1 Exit game*/
 
     /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
@@ -45,7 +46,28 @@ class POKER {
         }
     }
 
+    void is_playing_if_yes_ask_if_play_again(bool playing){
+        if(!playing){
+            
+        }
+    }
+
     void main_game_3bots(){
+        BOTAI AI1;
+        BOTAI AI2;
+        BOTAI AI2;
+        bool isgame = true;
+        player_playing = true;
+        while (isgame)
+        {
+            bool isround = true;
+            init_deck();
+            while (isround)
+            {
+                /* code */
+            }
+            
+        }
         
     }
 
@@ -80,21 +102,21 @@ class POKER {
             cin.clear();
             cout<<"-->";
             cin>>game_state;
-        }while(game_state != 1 || game_state != 0);
+        }while(game_state != 1 && game_state != 0);
         change_gamestate_rules();
     }
 
     void rules_suites(){
-        cout<<"Royal Flush — five cards of the same suit, ranked ace through ten\n\t"
-            <<"Straight Flush — five cards of the same suit and consecutively ranked\n\t"
-            <<"Four of a Kind — four cards of the same rank\n\t"
-            <<"Full House — three cards of the same rank and two more cards of the same rank\n\t"
-            <<"Flush — any five cards of the same suit\n\t"
-            <<"Straight — any five cards consecutively ranked\n\t"
-            <<"Three of a Kind — three cards of the same rank\n\t"
-            <<"Two Pair — two cards of the same rank and two more cards of the same rank\n\t"
-            <<"One Pair — two cards of the same rank\n\t"
-            <<"High Card — five unmatched cards, so you only consider the card with the highest rank.\n";
+        cout<<"\tRoyal Flush - five cards of the same suit, ranked ace through ten\n\t"
+            <<"Straight Flush - five cards of the same suit and consecutively ranked\n\t"
+            <<"Four of a Kind - four cards of the same rank\n\t"
+            <<"Full House - three cards of the same rank and two more cards of the same rank\n\t"
+            <<"Flush - any five cards of the same suit\n\t"
+            <<"Straight - any five cards consecutively ranked\n\t"
+            <<"Three of a Kind - three cards of the same rank\n\t"
+            <<"Two Pair - two cards of the same rank and two more cards of the same rank\n\t"
+            <<"One Pair - two cards of the same rank\n\t"
+            <<"High Card - five unmatched cards, so you only consider the card with the highest rank.\n";
         do{
             cout<<"-->";
             cin>>game_state;
@@ -158,8 +180,8 @@ class POKER {
 
 
             void sort_number(card cards[5], const int numofcards)
-    {
-        for (int i = 0; i<numofcards; i++)
+    {   //subhani, this is inly swapping numbers, not suits, fix !URGENT.
+        for (int i = 0; i<numofcards; i++)                        
         {
             for (int ii = i + 1; ii<numofcards; ii++)
             {
@@ -173,10 +195,9 @@ class POKER {
         }
     }
 
-            int confidencerating(card cards[5],int numofcards) 
-    //cards 1 to 5, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
+            int confidencerating(card cards[5],int numofcards) //card cards[5] requires manual entry of each value, also it intrudes on the parent classs' cards array namespace !FIX   
     {
-        //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh.
+        //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. <<---!change to string system and move to parent class.
         bool pair = false;
         bool two_pair = false;
         bool three_of_a_kind = false;
