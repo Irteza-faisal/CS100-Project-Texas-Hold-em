@@ -246,7 +246,7 @@ class BOTAI{
 
             int numofcards;
 
-            string biggest_threat;
+            int biggest_threat = 0;
 
             void assign_hand(card x,card y){
                 hand[1]=x;
@@ -327,6 +327,7 @@ void confidencerating(card cards_on_table[5])
         card cards[7];
 
         int temparraycounter = 0;
+
         for (int ivegivenup = 0; ivegivenup<numofcards; ivegivenup++)
         {
             if (ivegivenup<=1)
@@ -362,7 +363,6 @@ void confidencerating(card cards_on_table[5])
         //flush finder 9000
         int flush_val;
         //only exists to check 5 cards, or below 5 cards coz 5 cards needed for flush, 6 and 7 ew.
-        
         if (numofcards<=5)
         {
             flush_val = numofcards;
@@ -371,7 +371,6 @@ void confidencerating(card cards_on_table[5])
         {
             flush_val = 5;
         }
-
         for (int counter3 ; counter3<numofcards ; counter3++)
         {
             int samesuit = 0;
@@ -395,6 +394,8 @@ void confidencerating(card cards_on_table[5])
                 flush = true;
             }
         }
+
+
         int samecards = 0;
         //this number tells the number of cards that are the same, which dictates whether the ai has a pair, three of a kind, or four of a kind.
         
@@ -430,6 +431,7 @@ void confidencerating(card cards_on_table[5])
                 //increments to the next point in array for same cards.
             }
         }
+        
         if (counter2>0)
         //most programmers (including myself) will hate me for the monstrosity that follows, but believe me I just didnt feel like rewriting the entire code again. debugging moment indeed.
         {
@@ -541,6 +543,25 @@ void confidencerating(card cards_on_table[5])
         int number2 = distr2(gen);
 
         confidence = ((number1 + confidenceperc + number2)/3);
+
+        if (royal_flush) //not related to confidence, just makes code more optimized.
+        {biggest_threat = 9;}
+        else if (straight_flush)
+        {biggest_threat = 8;}
+        else if (four_of_a_kind)
+        {biggest_threat = 7;}
+        else if (full_house)
+        {biggest_threat = 6;}
+        else if (flush)
+        {biggest_threat = 5;}
+        else if (straight)
+        {biggest_threat = 4;}
+        else if (three_of_a_kind)
+        {biggest_threat = 3;}
+        else if (two_pair)
+        {biggest_threat = 2;}
+        else if (pair)
+        {biggest_threat = 1;}    
     }
 
 
