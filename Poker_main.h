@@ -61,7 +61,6 @@ class POKER {
         BOTAI AI3;
         bool isgame = true;
         player_playing = true;
-
         while (isgame && player_playing)
         {
             int player_bank= 500;
@@ -81,6 +80,35 @@ class POKER {
                 cout<<player_hand[1].Number<<" "<<player_hand[1].suit<<endl;
 
                 player_choice(isfold,pot,player_bank);
+                //Ai choices go here <-- I have no idea what is supposed to go here
+
+                dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
+                cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit;
+
+                if (!isfold){
+                    player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
+                }
+                //Ai choices go here
+
+                dealer[3]=draw_card();
+                cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit;
+
+                if (!isfold){
+                    player_choice(isfold,pot,player_bank);
+                }
+                //Ai choices go here.    
+                
+
+                dealer[4]=draw_card();
+                cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit;
+
+                if (!isfold){
+                    player_choice(isfold,pot,player_bank);
+                }
+                //Ai choices go here.
+
+
+
                  
             }
             is_playing_Perhamps(player_playing);
