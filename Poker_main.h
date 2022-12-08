@@ -48,10 +48,11 @@ class POKER {
         }
     }
 
-    void is_playing_if_yes_ask_if_play_again(bool playing){
-        if(!playing){
-            
+    void is_playing_Perhamps(bool &playing){
+        if(playing){
+           return; 
         }
+        cout<<"";
     }
 
     void main_game_3bots(){
@@ -60,22 +61,49 @@ class POKER {
         BOTAI AI3;
         bool isgame = true;
         player_playing = true;
-        while (isgame)
+
+        while (isgame && player_playing)
         {
+            int player_bank= 500;
             bool isround = true;
+            bool isfold = false;
+            int pot = 0;
             init_deck();
             while (isround)
             {
                 card player_hand[2] = {draw_card(),draw_card()};
 
                 AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
-
-
+                cout<<player_hand[0].Number<<" "<<player_hand[0].suit<<endl;
+                cout<<player_hand[1].Number<<" "<<player_hand[1].suit<<endl;
+                player_choice(isfold,pot,player_bank); 
+                
+                
+                
                 
             }
-            
+            is_playing_Perhamps(player_playing);
         }
         
+    }
+
+    void player_choice(bool &fold, int &pot, int &player_bank){
+        int choice = 0;
+        cout<<"What do you wish to do sir?"<<endl;
+        cout<<"1-Bet."<<"2-Fold"<<endl;
+        do{ 
+            cin.clear();
+            cout<<"-->";
+            cin>>choice;
+        }while(choice<=0 || choice >2|| cin.fail());
+        
+        if (choice == 1){
+            pot =+ 10;
+            player_bank =- 10;
+        } 
+        else{
+            fold = true;
+        }
     }
 
     void choose_number_of_players(){
@@ -172,7 +200,7 @@ class POKER {
 class BOTAI{
         public:
             card hand[2];
-            int bank;
+            int bank = 5000;
             //amount of money bot/player starts with
             
             int confidence;
@@ -387,7 +415,7 @@ int confidencerating(card cards[7],int numofcards)
             
             bool playing(const int bank, bool fold)
             {
-                if ((bank< 5))
+                if ((bank< 10))
                 //is this function nearly pointless? yes it is, but id rather not write these 4 lines again and again.
                 {
                     return false;
