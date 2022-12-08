@@ -68,19 +68,20 @@ class POKER {
             bool isround = true;
             bool isfold = false;
             int pot = 0;
+            card dealer[5];
             init_deck();
             while (isround)
             {
                 card player_hand[2] = {draw_card(),draw_card()};
 
                 AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
+                
+                cout<<"o\t\t"<<pot<<endl;
                 cout<<player_hand[0].Number<<" "<<player_hand[0].suit<<endl;
                 cout<<player_hand[1].Number<<" "<<player_hand[1].suit<<endl;
-                player_choice(isfold,pot,player_bank); 
-                
-                
-                
-                
+
+                player_choice(isfold,pot,player_bank);
+                 
             }
             is_playing_Perhamps(player_playing);
         }
@@ -413,17 +414,6 @@ int confidencerating(card cards[7],int numofcards)
                 }
             }
             
-            bool playing(const int bank, bool fold)
-            {
-                if ((bank< 10))
-                //is this function nearly pointless? yes it is, but id rather not write these 4 lines again and again.
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
+            
     };
 
