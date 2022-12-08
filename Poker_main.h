@@ -218,7 +218,7 @@ class BOTAI{
 
             int numofcards;
 
-            card cards_on_table[5];
+            string biggest_threat;
 
             void assign_hand(card x,card y){
                 hand[1]=x;
@@ -233,15 +233,56 @@ class BOTAI{
                     {
                         if (cards[i].Number > cards[ii].Number)
                         {
-                            int temp = cards[i].Number;
-                            cards[i].Number = cards[ii].Number;
-                            cards[ii].Number = temp;
+                            card temp = cards[i];
+                            cards[i] = cards[ii];
+                            cards[ii]  = temp;
                         }
                     }
                 }
             }
 
-void confidencerating() 
+            void sort_suit(card cards[5], const int numofcards)
+            {   
+                int x[7] = {99};
+                for (int k = 0; k<numofcards; k++)                        
+                {
+                    switch (cards[k].suit)
+                    {
+                    case 'D':
+                        x[k] = 1;
+                        break;
+                    case 'H':
+                        x[k] = 2;
+                        break;
+                    case 'S':
+                        x[k] = 3;
+                        break;
+                    case 'C':
+                        x[k] = 4;
+                        break;
+                    default:
+                        break;
+                    }
+                }
+                for (int i = 0; i<numofcards; i++)                        
+                {
+                    for (int ii = i + 1; ii<numofcards; ii++)
+                    {
+                        if (x[i] >= x[ii])
+                        {
+                            card temp = cards[i];
+                            cards[i]  = cards[ii];
+                            cards[ii] = temp;
+
+                            int temp2 = x[i];
+                            x[i] = x[ii];
+                            x[ii] = temp2;
+                        }
+                    }
+                }  
+            }
+
+void confidencerating(card cards_on_table[5]) 
     //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
         //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
