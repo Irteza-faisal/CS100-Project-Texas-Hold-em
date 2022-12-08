@@ -116,6 +116,29 @@ class POKER {
         
     }
 
+    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
+    {
+        int x[4] = {AI1_threat,AI2_threat,AI3_threat,player_threat};
+        string y[4] = {"bot 1","bot 2","bot 3","player"};
+        for (int i = 0; i<4; i++)       
+        {
+            for (int ii = i + 1; ii<4; ii++)
+            {
+                if (x[i] > x[ii])
+                {
+                    int temp = x[i];
+                    x[i] = x[ii];
+                    x[ii]  = temp;
+
+                    string temp = y[i];
+                    y[i] = y[ii];
+                    y[ii]  = temp;
+                }
+            }
+        }
+        return y[4];
+    }
+
     void player_choice(bool &fold, int &pot, int &player_bank){
         int choice = 0;
         cout<<"What do you wish to do sir?"<<endl;
