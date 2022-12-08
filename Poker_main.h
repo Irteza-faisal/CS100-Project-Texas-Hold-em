@@ -254,7 +254,7 @@ class BOTAI{
             }
 
             void sort_number(card cards[5], const int numofcards)
-            {   //subhani, this is inly swapping numbers, not suits, fix !URGENT.
+            { 
                 for (int i = 0; i<numofcards; i++)                        
                 {
                     for (int ii = i + 1; ii<numofcards; ii++)
@@ -343,6 +343,9 @@ void confidencerating(card cards_on_table[5])
         card sortedarray1[7];
         //only exists to make my poor life easier
         
+        card sortedarray2[7];
+        //only exists to make my poor life easier(2)
+        
         int confidenceperc = 100;
 
     for (int iiiii = 0; iiiii<numofcards; iiiii++ )
@@ -351,9 +354,47 @@ void confidencerating(card cards_on_table[5])
             }
         
         copy (cards, cards + numofcards,sortedarray1);
+        copy (cards, cards + numofcards,sortedarray2);
 
         sort_number(sortedarray1,numofcards);
+        sort_suit(sortedarray2,numofcards);
 
+        //flush finder 9000
+        int flush_val;
+        //only exists to check 5 cards, or below 5 cards coz 5 cards needed for flush, 6 and 7 ew.
+        
+        if (numofcards<=5)
+        {
+            flush_val = numofcards;
+        }
+        else
+        {
+            flush_val = 5;
+        }
+
+        for (int counter3 ; counter3<numofcards ; counter3++)
+        {
+            int samesuit = 0;
+
+            for (int counter3i = counter3+1; counter3i<numofcards; counter3i++)
+            {
+                if (sortedarray1[counter3].Number == sortedarray1[counter3i].Number )
+                {
+                    samesuit++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+            counter3+=samesuit;
+            //move away from the same suite cards;
+            if (samesuit == flush_val)
+            {
+                flush = true;
+            }
+        }
         int samecards = 0;
         //this number tells the number of cards that are the same, which dictates whether the ai has a pair, three of a kind, or four of a kind.
         
@@ -373,7 +414,6 @@ void confidencerating(card cards_on_table[5])
                 if (sortedarray1[i].Number == sortedarray1[ii].Number )
                 {
                     samecards++;
-                    cout<<"pair"<<endl;
                 }
                 else
                 {
@@ -391,8 +431,10 @@ void confidencerating(card cards_on_table[5])
             }
         }
         if (counter2>0)
+        //most programmers (including myself) will hate me for the monstrosity that follows, but believe me I just didnt feel like rewriting the entire code again. debugging moment indeed.
         {
             counter2--;
+            //so array counter val actually points at the correct limit.
             for (int iii = 0; iii<=counter2; iii++)
             {
                 //time to be inefficient and make a tower of if statements les gooooooooo
@@ -418,42 +460,41 @@ void confidencerating(card cards_on_table[5])
                     break;
                 }
             }
-            for (int counter3 ; counter3<numofcards ; counter3++)
+            for (int counter4 = 0 ; counter4<numofcards; counter4++)
             {
-                if (cards[counter3].suit == cards[counter3+1].suit)
+                int numbersinrow;
+                for (int counter4i = counter4+1; counter4i<flush_val; counter4i++)
                 {
-                    flush = true;
+                    if (cards[counter4].Number == ((cards[counter4i].Number)+1))
+                    {
+                        numbersinrow++;
+                    }
+                    else;
+                    {
+                        break;
+                    }
                 }
-                else
-                {
-                    flush = false;
-                    break;
-                }
-            }
-            for (int counter4 ; counter4<numofcards; counter4++)
-            {
-                if (cards[counter4].Number == cards[counter4+1].Number)
+                if (numbersinrow = flush_val)
                 {
                     straight = true;
                 }
-                else;
-                {
-                    straight = false;
-                    break;
-                }
-
             }
+
             if (three_of_a_kind && pair)
             {
                 full_house = true;
-                cout<<"full fkn house bc";
+                ;
             }
             if (straight && flush)
             {
                 if ((sortedarray1[1].Number == 10) && (sortedarray1[0].Number == 1))
                 {
                     royal_flush = true;
-                    cout<<"royal_flush";
+            
+                }
+                else
+                {
+                    straight_flush = true;
                 }
             }  
             if (pair)
