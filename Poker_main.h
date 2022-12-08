@@ -423,7 +423,9 @@ void confidencerating()
         random_device rd;
         mt19937 gen(rd());
         uniform_int_distribution<> distr1(0,99);
-        uniform_int_distribution<> distr2(35,75);
+        //adding a bit of randomness yes.
+        uniform_int_distribution<> distr2((confidenceperc - (confidenceperc/4)),confidenceperc);
+        //MORE SPICE BUT LESS INTESE TO ENSURE BOT DOSENT ALWAYS FOLD.
         
         int number1 = distr1(gen);
         int number2 = distr2(gen);
