@@ -4,6 +4,13 @@ using namespace std;
 #include<random>
 #pragma once
 
+typedef struct {
+        int Number;
+        char suit;
+        bool exists = true;
+}card;
+
+
 class POKER {
     public:
     int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,1,2,3,4,5,6,7,8,9,10,J,Q,K*/
@@ -13,12 +20,6 @@ class POKER {
     /*int Initial_game_states[3] = {1,2,-1}; Defines initial game states of Start game, Rules, Exit game, 1 starts game, 2 is rules, -1 Exit game*/
 
     /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
-
-    typedef struct {
-        int Number;
-        char suit;
-        bool exists = true;
-    }card;
 
     card cards[52];
 
@@ -67,7 +68,7 @@ class POKER {
             {
                 card player_hand[2] = {draw_card(),draw_card()};
 
-                AI1.assign_hand();AI2.assign_hand();AI3.assign_hand();
+                AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
 
 
                 
@@ -168,7 +169,7 @@ class POKER {
 
 };
 
-class BOTAI: public POKER {
+class BOTAI{
         public:
             card hand[2];
             int bank;
@@ -186,9 +187,9 @@ class BOTAI: public POKER {
             bool intheround = true;
             //uses same function as inthegame [the playing function] to tell whether a bot is playing the round or not (if it has folded yet, or is continuing)
 
-            void assign_hand(){
-                hand[1]=draw_card();
-                hand[0]=draw_card();
+            void assign_hand(card x,card y){
+                hand[1]=x;
+                hand[0]=y;
             }
 
             void sort_number(card cards[5], const int numofcards)
