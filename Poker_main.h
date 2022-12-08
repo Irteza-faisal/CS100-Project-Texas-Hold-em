@@ -215,6 +215,10 @@ class BOTAI{
             bool intheround = true;
             //uses same function as inthegame [the playing function] to tell whether a bot is playing the round or not (if it has folded yet, or is continuing)
 
+            int numofcards;
+
+            card cards_on_table[5];
+
             void assign_hand(card x,card y){
                 hand[1]=x;
                 hand[0]=y;
@@ -236,7 +240,7 @@ class BOTAI{
                 }
             }
 
-int confidencerating(card cards[7],int numofcards) 
+void confidencerating() 
     //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
         //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
@@ -250,7 +254,24 @@ int confidencerating(card cards[7],int numofcards)
         bool straight_flush = false;
         bool royal_flush = false;
 
-        card sortedarray1[5];
+        card cards[7];
+
+        int temparraycounter = 0;
+        for (int ivegivenup = 0; ivegivenup<numofcards; ivegivenup++)
+        {
+            if (ivegivenup<=1)
+            {
+            cards[ivegivenup] = hand[ivegivenup];
+            }
+            else
+            {
+                cards[ivegivenup] = cards_on_table[temparraycounter];
+                temparraycounter++;
+            }
+        }
+        
+        card sortedarray1[7];
+        //only exists to make my poor life easier
         
         int confidenceperc = 100;
 
@@ -397,33 +418,42 @@ int confidencerating(card cards[7],int numofcards)
                 confidenceperc+=50;
             }
         }
-        return confidenceperc;
+
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> distr1(0,99);
+        uniform_int_distribution<> distr2(35,75);
+        
+        int number1 = distr1(gen);
+        int number2 = distr2(gen);
+
+        confidence = ((number1 + confidenceperc + number2)/3);
     }
 
 
-            bool folding(int confidence_level)
-            {
-                if (confidence_level > 50)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            
-            bool playing(const int bank, bool fold)
-            {
-                if ((bank< 10))
-                //is this function nearly pointless? yes it is, but id rather not write these 4 lines again and again.
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-    };
+    void folding()
+    {
+        if (confidence > 50)
+        {
+            fold = false;
+        }
+        else
+        {
+            fold = true;
+        }
+    }
+
+    bool playing(const int bank, bool fold)
+    {
+        if ((bank< 10))
+        //is this function nearly pointless? yes it is, but id rather not write these 4 lines again and again.
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+};
 
