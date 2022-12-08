@@ -208,157 +208,170 @@ class BOTAI{
                 }
             }
 
-            int confidencerating(card cards[5],int numofcards) //card cards[5] requires manual entry of each value, also it intrudes on the parent classs' cards array namespace !FIX   
+int confidencerating(card cards[7],int numofcards) 
+    //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
+    {
+        //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
+        bool pair = false;
+        bool two_pair = false;
+        bool three_of_a_kind = false;
+        bool straight = false;
+        bool flush = false;
+        bool full_house = false;
+        bool four_of_a_kind = false;
+        bool straight_flush = false;
+        bool royal_flush = false;
+
+        card sortedarray1[5];
+        
+        int confidenceperc = 100;
+
+    for (int iiiii = 0; iiiii<numofcards; iiiii++ )
             {
-                //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. <<---!change to string system and move to parent class.
-                bool pair = false;
-                bool two_pair = false;
-                bool three_of_a_kind = false;
-                bool straight = false;
-                bool flush = false;
-                bool full_house = false;
-                bool four_of_a_kind = false;
-                bool straight_flush = false;
-                bool royal_flush = false;
+             confidenceperc= (+confidenceperc -7);
+            }
+        
+        copy (cards, cards + numofcards,sortedarray1);
 
-                card sortedarray1[5];
-                
-                int confidenceperc = 55;
+        sort_number(sortedarray1,numofcards);
 
-                for (int k; k<numofcards; k++)
+        int samecards = 0;
+        //this number tells the number of cards that are the same, which dictates whether the ai has a pair, three of a kind, or four of a kind.
+        
+        int different_combos[5] = {0};
+        //this tell the number of combos that exist (2 pairs, straight, 3 in a row, 4 in a row etc)
+        
+        int counter2 = 0;
+        //this counter tells the actual number of times the loop below is used. its used in inserting values inside the different_combos arrray.
+        
+        for (int i = 0; i < numofcards; i++)
+        //i in this case dictates which card is being used to find a pair of. so cards[0] means finding pairs for card number 1;
+        {
+            samecards = 0;
+
+            for (int ii = i+1; ii<numofcards; ii++)
+            {
+                if (sortedarray1[i].Number == sortedarray1[ii].Number )
                 {
-                    confidenceperc-=2;
+                    samecards++;
+                    cout<<"pair"<<endl;
                 }
-                
-                copy (cards, cards+numofcards,sortedarray1);
-
-                sort_number(sortedarray1,numofcards);
-
-                int samecards;
-                //this number tells the number of cards that are the same, which dictates whether the ai has a pair, three of a kind, or four of a kind.
-                
-                int different_combos[3];
-                //this tell the number of combos that exist (2 pairs, straight, 3 in a row, 4 in a row etc)
-                
-                int counter2 = 0;
-                //this counter tells the actual number of times the loop below is used. its used in inserting values inside the different_combos arrray.
-                
-                for (int i = 0; i < numofcards; i++)
+                else
                 {
-
-                    samecards = 0;
-
-                    for (int ii = i+1; ii<numofcards; ii++)
-                    {
-                    
-                        if (sortedarray1[i].Number == sortedarray1[ii].Number )
-                        {
-                            samecards++;
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    
-                    i+=samecards;
-                    different_combos[counter2] = samecards;
-                    counter2++;
+                    break;
                 }
-
-                for (int iii = 0; iii<sizeof(different_combos)/sizeof(int); iii++)
+            }
+            
+            i+=samecards;
+            //move away from the same pair cards;
+            if (samecards!= 0)
+            {
+                different_combos[counter2] = samecards+1;
+                counter2++;
+                //increments to the next point in array for same cards.
+            }
+        }
+        if (counter2>0)
+        {
+            counter2--;
+            for (int iii = 0; iii<=counter2; iii++)
+            {
+                //time to be inefficient and make a tower of if statements les gooooooooo
+                switch (different_combos[iii])
                 {
-                    //time to be inefficient and make a tower of if statements les gooooooooo
-                    switch (different_combos[iii])
+                case 2:
+                    if (!pair)
                     {
-                    case 2:
-                        if (!pair)
-                        {
-                            pair = true;
-                        }
-                        else
-                        {
-                            two_pair = true;
-                        }
-                        break;
-                    case 3:
-                        three_of_a_kind = true;
-                        break;
-                    case 4:
-                        four_of_a_kind = true;
-                        break;
-                    }
-                }
-                for (int iiiiii ; iiiiii<numofcards ; iiiiii++)
-                {
-                    if (cards[iiiiii].suit == cards[iiiiii+1].suit)
-                    {
-                        flush = true;
+                        pair = true; 
                     }
                     else
                     {
-                        flush = false;
-                        break;
+                        two_pair = true;
                     }
+                    break;
+                case 3:
+                    three_of_a_kind = true;
+                    break;
+                case 4:
+                    four_of_a_kind = true;
+                    break;
+                default:
+                    break;
                 }
-                for (int iiiiiii ; iiiiiii<numofcards; iiiiiii++)
-                {
-                    if (cards[iiiiiii].Number == cards[iiiiiii+1].Number)
-                    {
-                        straight = true;
-                    }
-                    else;
-                    {
-                        straight = false;
-                        break;
-                    }
-
-                }
-                if (three_of_a_kind && pair)
-                {
-                    full_house = true;
-                }
-                if (straight && flush)
-                {
-                    if ((sortedarray1[1].Number == 10) && (sortedarray1[0].Number == 1))
-                    {
-                        royal_flush = true;
-                    }
-                }
-
-                for (int iiiii = 0; iiiii<numofcards; iiiii++ )
-                {
-                    confidenceperc=-5;
-                }
-                if (three_of_a_kind)
-                {
-                    confidenceperc=+15;
-                }
-                if (four_of_a_kind)
-                {
-                    confidenceperc=+15;
-                }
-                if (full_house)
-                {
-                    confidenceperc=+15;
-                }
-                if (two_pair)
-                {
-                    confidenceperc=+15;
-                }
-                if (flush)
-                {
-                    for (int j = 0; j<numofcards; j++)
-                    {
-                        confidenceperc=+2;
-                    }
-                }
-                if (royal_flush)
-                {
-                    confidenceperc+=50;
-                }
-                return confidenceperc;
             }
+            for (int counter3 ; counter3<numofcards ; counter3++)
+            {
+                if (cards[counter3].suit == cards[counter3+1].suit)
+                {
+                    flush = true;
+                }
+                else
+                {
+                    flush = false;
+                    break;
+                }
+            }
+            for (int counter4 ; counter4<numofcards; counter4++)
+            {
+                if (cards[counter4].Number == cards[counter4+1].Number)
+                {
+                    straight = true;
+                }
+                else;
+                {
+                    straight = false;
+                    break;
+                }
+
+            }
+            if (three_of_a_kind && pair)
+            {
+                full_house = true;
+                cout<<"full fkn house bc";
+            }
+            if (straight && flush)
+            {
+                if ((sortedarray1[1].Number == 10) && (sortedarray1[0].Number == 1))
+                {
+                    royal_flush = true;
+                    cout<<"royal_flush";
+                }
+            }  
+            if (pair)
+            {
+                confidenceperc+=10;
+            }
+            if (three_of_a_kind)
+            {
+                confidenceperc+=12;
+            }
+            if (four_of_a_kind)
+            {
+                confidenceperc+=25;
+            }
+            if (full_house)
+            {
+                confidenceperc+=30;
+            }
+            if (two_pair)
+            {
+                confidenceperc+=20;
+            }
+            if (flush)
+            {
+                for (int j = 0; j<numofcards; j++)
+                {
+                    confidenceperc+=2;
+                }
+            }
+            if (royal_flush)
+            {
+                confidenceperc+=50;
+            }
+        }
+        return confidenceperc;
+    }
+
 
             bool folding(int confidence_level)
             {
