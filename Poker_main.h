@@ -394,6 +394,7 @@ class POKER {
         int card_index = distr(gen);
         while (!(cards[card_index].exists)){
             int card_index = distr(gen);
+            cout<<"idfk";
         }
         cards[card_index].exists=false;
         return cards[card_index]; 
@@ -424,6 +425,7 @@ class POKER {
         BOTAI AI2;
         BOTAI AI3;
         bool isgame = true;
+        cout<<"aaaa\n";
         bool player_playing = true;
         while (isgame && player_playing)
         {
@@ -432,11 +434,13 @@ class POKER {
             bool isfold = false;
             int pot = 0;
             card dealer[5];
+            cout<<"aaaaa\n";
             init_deck();
+            cout<<"bbbbbbb\n";
             while (isround)
             {
                 card player_hand[2] = {draw_card(),draw_card()};
-
+                cout<<"aaaa\n";
                 AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
                 
                 cout<<"\t\t"<<pot<<endl;
