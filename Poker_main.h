@@ -354,7 +354,7 @@ class BOTAI{
 
             void folding()
             {
-                if (confidence > 50)
+                if (confidence > 50 && bank>10)
                 {
                     fold = false;
                 }
@@ -706,6 +706,8 @@ class POKER {
             while (isround)
             {
                 card player_hand[2] = {draw_card(),draw_card()};
+
+                AI1.fold = AI2.fold = AI3.fold = false;
                
                 AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
                 
