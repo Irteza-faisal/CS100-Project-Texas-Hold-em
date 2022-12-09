@@ -413,19 +413,11 @@ class POKER {
         }
     }
 
-    void is_playing_Perhamps(bool &playing){
-        if(playing){
-           return; 
-        }
-        cout<<"";
-    }
-
     void main_game_3bots(){
         BOTAI AI1;
         BOTAI AI2;
         BOTAI AI3;
         bool isgame = true;
-        cout<<"aaaa\n";
         bool player_playing = true;
         int player_bank= 500;
         while (isgame && player_playing)
@@ -435,18 +427,15 @@ class POKER {
             bool isfold = false;
             int pot = 0;
             card dealer[5];
-            cout<<"aaaaa\n";
             init_deck();
-            cout<<"bbbbbbb\n";
             while (isround)
             {
                 card player_hand[2] = {draw_card(),draw_card()};
-                cout<<"aaaa\n";
                 AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
                 
-                cout<<"\t\t"<<pot<<endl;
-                cout<<player_hand[0].Number<<" "<<player_hand[0].suit<<endl;
-                cout<<player_hand[1].Number<<" "<<player_hand[1].suit<<endl;
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
 
                 player_choice(isfold,pot,player_bank);
                 //Ai choices go here <-- I have no idea what is supposed to go here
@@ -484,10 +473,13 @@ class POKER {
                         pot+=10;
                     }
                 }
-
+                
                 dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
-                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
 
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
                 
                 player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
                 
@@ -527,7 +519,10 @@ class POKER {
                 }
 
                 dealer[3]=draw_card();
-                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
 
                 player_choice(isfold,pot,player_bank);
 
@@ -566,8 +561,10 @@ class POKER {
                 }
 
                 dealer[4]=draw_card();
-                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
-
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
                 
                 player_choice(isfold,pot,player_bank);
                 
@@ -604,6 +601,10 @@ class POKER {
                         pot+=10;
                     }
                 }
+
+
+
+                isfold = false;
             }
         }
         
@@ -732,6 +733,7 @@ class POKER {
         cout<<setw(125)<<"<----WELCOME TO POKER TEXAS HOLD'EM---->\n";
         cout<<"1:Start Game.\n2:Rules.\n-1:Exit.\n";
         do{
+            cin.clear();
             cout<<"-->";
             cin>>game_state;
         }while(game_state < -1 || cin.fail() || game_state > 2);
