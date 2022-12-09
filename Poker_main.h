@@ -321,7 +321,7 @@ void confidencerating(card cards_on_table[5])
 
         random_device rd;
         mt19937 gen(rd());
-        uniform_int_distribution<> distr1(0,99);
+        uniform_int_distribution<> distr1(50,70);
         //adding a bit of randomness yes.
         uniform_int_distribution<> distr2((confidenceperc - (confidenceperc/4)),confidenceperc);
         //MORE SPICE BUT LESS INTESE TO ENSURE BOT DOSENT ALWAYS FOLD.
@@ -329,7 +329,7 @@ void confidencerating(card cards_on_table[5])
         int number1 = distr1(gen);
         int number2 = distr2(gen);
 
-        confidence = ((number1 + confidenceperc + number2)/3);
+        confidence = ((number1 + confidenceperc)/2);
 
         if (royal_flush) //not related to confidence, just makes code more optimized.
         {biggest_threat = 9;}
