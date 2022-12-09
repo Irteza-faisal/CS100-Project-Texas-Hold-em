@@ -899,7 +899,11 @@ class POKER {
                 }
                 isround = false;
             }
-            int bank_array[4]={AI1.bank,AI2.bank,AI3.bank,player_bank};
+            int bank_array[4];
+            bank_array[0] = AI1.bank;
+            bank_array[1] = AI2.bank;
+            bank_array[2] = AI3.bank;
+            bank_array[3] = player_bank;
             sort(bank_array);
             int zeroes = count_zeroes(bank_array);
             if (zeroes == 3){
