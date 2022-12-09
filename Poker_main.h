@@ -2,252 +2,12 @@ using namespace std;
 #include<iostream>
 #include<iomanip>
 #include<random>
-#pragma once
 
 typedef struct {
         int Number;
         char suit;
         bool exists = true;
 }card;
-
-
-class POKER {
-    public:
-    int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,1,2,3,4,5,6,7,8,9,10,J,Q,K*/
-    char suits[4] = {'D','H','C','S'};
-    int game_state = 0;
-    bool player_playing = false;
-    /*int Initial_game_states[3] = {1,2,-1}; Defines initial game states of Start game, Rules, Exit game, 1 starts game, 2 is rules, -1 Exit game*/
-
-    /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
-
-    card cards[52];
-
-    card draw_card(){
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> distr(0,51);
-        int card_index = distr(gen);
-        while (!(cards[card_index].exists)){
-            int card_index = distr(gen);
-        }
-        cards[card_index].exists=false;
-        return cards[card_index]; 
-    }
-
-    void init_deck(){ /*Initialises deck*/
-        int n = 0;
-        while (n != 52){
-        for (int i = 0; i < 4; i++){
-            for (int j = 0; j < 13; j++){
-                cards[n].Number = Nums[j];
-                cards[n].suit = suits[i];
-                n++;
-            }
-        }
-        }
-    }
-
-    void is_playing_Perhamps(bool &playing){
-        if(playing){
-           return; 
-        }
-        cout<<"";
-    }
-
-    void main_game_3bots(){
-        BOTAI AI1;
-        BOTAI AI2;
-        BOTAI AI3;
-        bool isgame = true;
-        player_playing = true;
-        while (isgame && player_playing)
-        {
-            int player_bank= 500;
-            bool isround = true;
-            bool isfold = false;
-            int pot = 0;
-            card dealer[5];
-            init_deck();
-            while (isround)
-            {
-                card player_hand[2] = {draw_card(),draw_card()};
-
-                AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
-                
-                cout<<"o\t\t"<<pot<<endl;
-                cout<<player_hand[0].Number<<" "<<player_hand[0].suit<<endl;
-                cout<<player_hand[1].Number<<" "<<player_hand[1].suit<<endl;
-
-                player_choice(isfold,pot,player_bank);
-                //Ai choices go here <-- I have no idea what is supposed to go here
-
-                dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
-                cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit;
-
-                if (!isfold){
-                    player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
-                }
-                //Ai choices go here
-
-                dealer[3]=draw_card();
-                cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit;
-
-                if (!isfold){
-                    player_choice(isfold,pot,player_bank);
-                }
-                //Ai choices go here.    
-                
-
-                dealer[4]=draw_card();
-                cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit;
-
-                if (!isfold){
-                    player_choice(isfold,pot,player_bank);
-                }
-                //Ai choices go here.
-
-
-
-                 
-            }
-            is_playing_Perhamps(player_playing);
-        }
-        
-    }
-
-    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
-    {
-        int x[4] = {AI1_threat,AI2_threat,AI3_threat,player_threat};
-        string y[4] = {"bot 1","bot 2","bot 3","player"};
-        for (int i = 0; i<4; i++)       
-        {
-            for (int ii = i + 1; ii<4; ii++)
-            {
-                if (x[i] > x[ii])
-                {
-                    int temp = x[i];
-                    x[i] = x[ii];
-                    x[ii]  = temp;
-
-                    string temp = y[i];
-                    y[i] = y[ii];
-                    y[ii]  = temp;
-                }
-            }
-        }
-        return y[4];
-    }
-
-    void player_choice(bool &fold, int &pot, int &player_bank){
-        int choice = 0;
-        cout<<"What do you wish to do sir?"<<endl;
-        cout<<"1-Bet."<<"2-Fold"<<endl;
-        do{ 
-            cin.clear();
-            cout<<"-->";
-            cin>>choice;
-        }while(choice<=0 || choice >2|| cin.fail());
-        
-        if (choice == 1){
-            pot =+ 10;
-            player_bank =- 10;
-        } 
-        else{
-            fold = true;
-        }
-    }
-
-    void choose_number_of_players(){
-        /*Deliverable 3 for it just executes the setup for 1 vs 1 vs 1 vs 1*/
-        main_game_3bots();
-    }
-
-    void rules(){
-
-        game_state = 0;
-        
-        cout<<"So, what is texas holdem?\n"
-            <<"simple, all you have to do is make a combo of 5 cards that is better than everyone else\n"
-            <<"see that is not so complex is it?\n\n"
-            <<"so lets get into the nitty gritty.\n"
-            <<"first round, everyone get dealt with 2 cards\n"
-            <<"a first round of \"betting\" happens, where you put in your money in the pot\n"
-            <<"after this community cards (cards anyone can use) are dealt\n\t"
-            <<"one card is dealt, the betting restarts\n\t"
-            <<"another card is dealt,betting restarts\n\t"
-            <<"another card is dealt,betting restarts\n\t"
-            <<"another card is dealt,betting restarts\n\t"
-            <<"last card is dealt, final betting happens\n\t"
-            <<"in this, if you stopped betting at any round, you can longer bet in the other rounds, as you have\'folded\'\n\t"
-            <<"in the end, if you have the best hand, congrats, you win the pot, if you don't have the best hand, well, you lose your bets\n\t"
-            <<"first to go broke loses, which automatically means im losing"
-            <<"\n\n"
-            <<"hope this helps. if it didnt, check this site \"https://www.pokernews.com/poker-rules/texas-holdem.htm\""
-            <<"\n\n";
-        do{
-            cin.clear();
-            cout<<"-->";
-            cin>>game_state;
-        }while(game_state != 1 && game_state != 0);
-        change_gamestate_rules();
-    }
-
-    void rules_suites(){
-        cout<<"\tRoyal Flush - five cards of the same suit, ranked ace through ten\n\t"
-            <<"Straight Flush - five cards of the same suit and consecutively ranked\n\t"
-            <<"Four of a Kind - four cards of the same rank\n\t"
-            <<"Full House - three cards of the same rank and two more cards of the same rank\n\t"
-            <<"Flush - any five cards of the same suit\n\t"
-            <<"Straight - any five cards consecutively ranked\n\t"
-            <<"Three of a Kind - three cards of the same rank\n\t"
-            <<"Two Pair - two cards of the same rank and two more cards of the same rank\n\t"
-            <<"One Pair - two cards of the same rank\n\t"
-            <<"High Card - five unmatched cards, so you only consider the card with the highest rank.\n";
-        do{
-            cout<<"-->";
-            cin>>game_state;
-        }while(game_state != 0);
-
-        change_gamestate_rules();
-    }
-
-    void change_gamestate_mainmenu(){
-        if (game_state == 1){
-            choose_number_of_players();
-        }
-        else if (game_state == 2){
-            rules();
-        }
-    }
-
-    void change_gamestate_rules(){
-        if (game_state == 1){
-            rules_suites();
-        }
-        else if (game_state == 0){
-            INIT();
-        }
-    }
-
-    void change_gamestate_start_substate(){  /*Is this efficient? probably not? Do I care? Definetly not.*/
-        if (game_state == 1) {
-
-        }
-    }
-
-    void INIT(){
-        cout<<setw(125)<<"<----WELCOME TO POKER TEXAS HOLD'EM---->\n";
-        cout<<"1:Start Game.\n2:Rules.\n-1:Exit.\n";
-        do{
-            cout<<"-->";
-            cin>>game_state;
-        }while(game_state < -1 || cin.fail() || game_state > 2);
-        change_gamestate_mainmenu();
-
-    }
-
-};
 
 class BOTAI{
         public:
@@ -613,4 +373,245 @@ void confidencerating(card cards_on_table[5])
         }
     }
 };
+
+
+class POKER {
+    public:
+    int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,1,2,3,4,5,6,7,8,9,10,J,Q,K*/
+    char suits[4] = {'D','H','C','S'};
+    int game_state = 0;
+    bool player_playing = false;
+    /*int Initial_game_states[3] = {1,2,-1}; Defines initial game states of Start game, Rules, Exit game, 1 starts game, 2 is rules, -1 Exit game*/
+
+    /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
+
+    card cards[52];
+
+    card draw_card(){
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> distr(0,51);
+        int card_index = distr(gen);
+        while (!(cards[card_index].exists)){
+            int card_index = distr(gen);
+        }
+        cards[card_index].exists=false;
+        return cards[card_index]; 
+    }
+
+    void init_deck(){ /*Initialises deck*/
+        int n = 0;
+        while (n != 52){
+        for (int i = 0; i < 4; i++){
+            for (int j = 0; j < 13; j++){
+                cards[n].Number = Nums[j];
+                cards[n].suit = suits[i];
+                n++;
+            }
+        }
+        }
+    }
+
+    void is_playing_Perhamps(bool &playing){
+        if(playing){
+           return; 
+        }
+        cout<<"";
+    }
+
+    void main_game_3bots(){
+        BOTAI AI1;
+        BOTAI AI2;
+        BOTAI AI3;
+        bool isgame = true;
+        player_playing = true;
+        while (isgame && player_playing)
+        {
+            int player_bank= 500;
+            bool isround = true;
+            bool isfold = false;
+            int pot = 0;
+            card dealer[5];
+            init_deck();
+            while (isround)
+            {
+                card player_hand[2] = {draw_card(),draw_card()};
+
+                AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
+                
+                cout<<"\t\t"<<pot<<endl;
+                cout<<player_hand[0].Number<<" "<<player_hand[0].suit<<endl;
+                cout<<player_hand[1].Number<<" "<<player_hand[1].suit<<endl;
+
+                player_choice(isfold,pot,player_bank);
+                //Ai choices go here <-- I have no idea what is supposed to go here
+
+                dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
+                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
+
+                if (!isfold){
+                    player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
+                }
+                //Ai choices go here
+
+                dealer[3]=draw_card();
+                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
+
+                if (!isfold){
+                    player_choice(isfold,pot,player_bank);
+                }
+                //Ai choices go here.    
+                
+
+                dealer[4]=draw_card();
+                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
+
+                if (!isfold){
+                    player_choice(isfold,pot,player_bank);
+                }
+                //Ai choices go here.
+
+
+
+                 
+            }
+            is_playing_Perhamps(player_playing);
+        }
+        
+    }
+
+    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
+    {
+        int x[4] = {AI1_threat,AI2_threat,AI3_threat,player_threat};
+        string y[4] = {"bot 1","bot 2","bot 3","player"};
+        for (int i = 0; i<4; i++)       
+        {
+            for (int ii = i + 1; ii<4; ii++)
+            {
+                if (x[i] > x[ii])
+                {
+                    int temp = x[i];
+                    x[i] = x[ii];
+                    x[ii]  = temp;
+
+                    string temp2 = y[i];
+                    y[i] = y[ii];
+                    y[ii]  = temp;
+                }
+            }
+        }
+        return y[4];
+    }
+
+    void player_choice(bool &fold, int &pot, int &player_bank){
+        int choice = 0;
+        cout<<"What do you wish to do sir?"<<endl;
+        cout<<"1-Bet."<<"2-Fold"<<endl;
+        do{ 
+            cin.clear();
+            cout<<"-->";
+            cin>>choice;
+        }while(choice<=0 || choice >2);
+
+        if (choice == 1){
+            pot += 10;
+            player_bank -= 10;
+        } 
+        else{
+            fold = true;
+        }
+    }
+
+    void choose_number_of_players(){
+        /*Deliverable 3 for it just executes the setup for 1 vs 1 vs 1 vs 1*/
+        main_game_3bots();
+    }
+
+    void rules(){
+
+        game_state = 0;
+        
+        cout<<"So, what is texas holdem?\n"
+            <<"simple, all you have to do is make a combo of 5 cards that is better than everyone else\n"
+            <<"see that is not so complex is it?\n\n"
+            <<"so lets get into the nitty gritty.\n"
+            <<"first round, everyone get dealt with 2 cards\n"
+            <<"a first round of \"betting\" happens, where you put in your money in the pot\n"
+            <<"after this community cards (cards anyone can use) are dealt\n\t"
+            <<"one card is dealt, the betting restarts\n\t"
+            <<"another card is dealt,betting restarts\n\t"
+            <<"another card is dealt,betting restarts\n\t"
+            <<"another card is dealt,betting restarts\n\t"
+            <<"last card is dealt, final betting happens\n\t"
+            <<"in this, if you stopped betting at any round, you can longer bet in the other rounds, as you have\'folded\'\n\t"
+            <<"in the end, if you have the best hand, congrats, you win the pot, if you don't have the best hand, well, you lose your bets\n\t"
+            <<"first to go broke loses, which automatically means im losing"
+            <<"\n\n"
+            <<"hope this helps. if it didnt, check this site \"https://www.pokernews.com/poker-rules/texas-holdem.htm\""
+            <<"\n\n";
+        do{
+            cin.clear();
+            cout<<"-->";
+            cin>>game_state;
+        }while(game_state != 1 && game_state != 0);
+        change_gamestate_rules();
+    }
+
+    void rules_suites(){
+        cout<<"\tRoyal Flush - five cards of the same suit, ranked ace through ten\n\t"
+            <<"Straight Flush - five cards of the same suit and consecutively ranked\n\t"
+            <<"Four of a Kind - four cards of the same rank\n\t"
+            <<"Full House - three cards of the same rank and two more cards of the same rank\n\t"
+            <<"Flush - any five cards of the same suit\n\t"
+            <<"Straight - any five cards consecutively ranked\n\t"
+            <<"Three of a Kind - three cards of the same rank\n\t"
+            <<"Two Pair - two cards of the same rank and two more cards of the same rank\n\t"
+            <<"One Pair - two cards of the same rank\n\t"
+            <<"High Card - five unmatched cards, so you only consider the card with the highest rank.\n";
+        do{
+            cout<<"-->";
+            cin>>game_state;
+        }while(game_state != 0);
+
+        change_gamestate_rules();
+    }
+
+    void change_gamestate_mainmenu(){
+        if (game_state == 1){
+            choose_number_of_players();
+        }
+        else if (game_state == 2){
+            rules();
+        }
+    }
+
+    void change_gamestate_rules(){
+        if (game_state == 1){
+            rules_suites();
+        }
+        else if (game_state == 0){
+            INIT();
+        }
+    }
+
+    void change_gamestate_start_substate(){  /*Is this efficient? probably not? Do I care? Definetly not.*/
+        if (game_state == 1) {
+
+        }
+    }
+
+    void INIT(){
+        cout<<setw(125)<<"<----WELCOME TO POKER TEXAS HOLD'EM---->\n";
+        cout<<"1:Start Game.\n2:Rules.\n-1:Exit.\n";
+        do{
+            cout<<"-->";
+            cin>>game_state;
+        }while(game_state < -1 || cin.fail() || game_state > 2);
+        change_gamestate_mainmenu();
+
+    }
+
+};
+
+
 
