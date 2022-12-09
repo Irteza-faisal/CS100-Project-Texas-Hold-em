@@ -424,7 +424,7 @@ class POKER {
         BOTAI AI2;
         BOTAI AI3;
         bool isgame = true;
-        player_playing = true;
+        bool player_playing = true;
         while (isgame && player_playing)
         {
             int player_bank= 5000;
@@ -652,11 +652,6 @@ class POKER {
         }
     }
 
-    void choose_number_of_players(){
-        /*Deliverable 3 for it just executes the setup for 1 vs 1 vs 1 vs 1*/
-        main_game_3bots();
-    }
-
     void rules(){
 
         game_state = 0;
@@ -710,7 +705,7 @@ class POKER {
 
     void change_gamestate_mainmenu(){
         if (game_state == 1){
-            choose_number_of_players();
+            main_game_3bots();
         }
         else if (game_state == 2){
             rules();
