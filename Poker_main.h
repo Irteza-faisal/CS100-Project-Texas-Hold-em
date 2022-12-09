@@ -916,7 +916,7 @@ class POKER {
 
     
     
-    string sort(int arr[]){
+    void sort(int arr[]){
         bool swaps = false;
         int temp; string temp2;
         
