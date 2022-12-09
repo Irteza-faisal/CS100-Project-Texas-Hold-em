@@ -377,7 +377,7 @@ void confidencerating(card cards_on_table[5])
 
 class POKER {
     public:
-    int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,1,2,3,4,5,6,7,8,9,10,J,Q,K*/
+    int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,2,3,4,5,6,7,8,9,10,J,Q,K*/
     char suits[4] = {'D','H','C','S'};
     int game_state = 0;
     bool player_playing = false;
@@ -427,7 +427,7 @@ class POKER {
         player_playing = true;
         while (isgame && player_playing)
         {
-            int player_bank= 500;
+            int player_bank= 5000;
             bool isround = true;
             bool isfold = false;
             int pot = 0;
@@ -446,13 +446,80 @@ class POKER {
                 player_choice(isfold,pot,player_bank);
                 //Ai choices go here <-- I have no idea what is supposed to go here
 
+                AI1.numofcards = AI2.numofcards = AI3.numofcards = 2;
+                
+                AI1.confidencerating(dealer);
+                AI2.confidencerating(dealer);
+                AI3.confidencerating(dealer);
+                
+                if (!AI1.fold)
+                {
+                    AI1.folding();
+                    if (!AI1.fold)
+                    {
+                        AI1.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI2.fold)
+                {
+                    AI2.folding();
+                    if (!AI2.fold)
+                    {
+                        AI2.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI3.fold)
+                {
+                    AI3.folding();
+                    if (!AI3.fold)
+                    {
+                        AI3.bank-=10;
+                        pot+=10;
+                    }
+                }
+
                 dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
                 cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
 
                 if (!isfold){
                     player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
                 }
-                //Ai choices go here
+                
+                AI1.numofcards = AI2.numofcards = AI3.numofcards = 5;
+                
+                AI1.confidencerating(dealer);
+                AI2.confidencerating(dealer);
+                AI3.confidencerating(dealer);
+                
+                if (!AI1.fold)
+                {
+                    AI1.folding();
+                    if (!AI1.fold)
+                    {
+                        AI1.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI2.fold)
+                {
+                    AI2.folding();
+                    if (!AI2.fold)
+                    {
+                        AI2.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI3.fold)
+                {
+                    AI3.folding();
+                    if (!AI3.fold)
+                    {
+                        AI3.bank-=10;
+                        pot+=10;
+                    }
+                }
 
                 dealer[3]=draw_card();
                 cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
@@ -460,8 +527,39 @@ class POKER {
                 if (!isfold){
                     player_choice(isfold,pot,player_bank);
                 }
-                //Ai choices go here.    
+                AI1.numofcards = AI2.numofcards = AI3.numofcards = 6;
                 
+                AI1.confidencerating(dealer);
+                AI2.confidencerating(dealer);
+                AI3.confidencerating(dealer);
+                
+                if (!AI1.fold)
+                {
+                    AI1.folding();
+                    if (!AI1.fold)
+                    {
+                        AI1.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI2.fold)
+                {
+                    AI2.folding();
+                    if (!AI2.fold)
+                    {
+                        AI2.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI3.fold)
+                {
+                    AI3.folding();
+                    if (!AI3.fold)
+                    {
+                        AI3.bank-=10;
+                        pot+=10;
+                    }
+                }
 
                 dealer[4]=draw_card();
                 cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
@@ -469,7 +567,39 @@ class POKER {
                 if (!isfold){
                     player_choice(isfold,pot,player_bank);
                 }
-                //Ai choices go here.
+                AI1.numofcards = AI2.numofcards = AI3.numofcards = 7;
+                
+                AI1.confidencerating(dealer);
+                AI2.confidencerating(dealer);
+                AI3.confidencerating(dealer);
+                
+                if (!AI1.fold)
+                {
+                    AI1.folding();
+                    if (!AI1.fold)
+                    {
+                        AI1.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI2.fold)
+                {
+                    AI2.folding();
+                    if (!AI2.fold)
+                    {
+                        AI2.bank-=10;
+                        pot+=10;
+                    }
+                }
+                if (!AI3.fold)
+                {
+                    AI3.folding();
+                    if (!AI3.fold)
+                    {
+                        AI3.bank-=10;
+                        pot+=10;
+                    }
+                }
 
 
 
@@ -548,7 +678,8 @@ class POKER {
             <<"first to go broke loses, which automatically means im losing"
             <<"\n\n"
             <<"hope this helps. if it didnt, check this site \"https://www.pokernews.com/poker-rules/texas-holdem.htm\""
-            <<"\n\n";
+            <<"\n\n"
+            <<"for rules about suites, type 1. for main page, type 0.\n";
         do{
             cin.clear();
             cout<<"-->";
@@ -567,7 +698,8 @@ class POKER {
             <<"Three of a Kind - three cards of the same rank\n\t"
             <<"Two Pair - two cards of the same rank and two more cards of the same rank\n\t"
             <<"One Pair - two cards of the same rank\n\t"
-            <<"High Card - five unmatched cards, so you only consider the card with the highest rank.\n";
+            <<"High Card - five unmatched cards, so you only consider the card with the highest rank.\n"
+            <<"type 0 when done\n";
         do{
             cout<<"-->";
             cin>>game_state;
