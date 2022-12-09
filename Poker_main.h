@@ -523,7 +523,10 @@ class POKER {
                 }
 
                 dealer[3]=draw_card();
-                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"\t\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
 
                 player_choice(isfold,pot,player_bank);
 
@@ -562,8 +565,10 @@ class POKER {
                 }
 
                 dealer[4]=draw_card();
-                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
-
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"\t\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
                 
                 player_choice(isfold,pot,player_bank);
                 
