@@ -696,7 +696,7 @@ class POKER {
             <<"Two Pair - two cards of the same rank and two more cards of the same rank\n\t"
             <<"One Pair - two cards of the same rank\n\t"
             <<"High Card - five unmatched cards, so you only consider the card with the highest rank.\n"
-            <<"type 0 when done\n";
+            <<"type 0 when don";
         do{
             cout<<"-->";
             cin>>game_state;
