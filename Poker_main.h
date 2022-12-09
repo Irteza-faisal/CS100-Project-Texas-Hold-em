@@ -384,7 +384,9 @@ class POKER {
     int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,2,3,4,5,6,7,8,9,10,J,Q,K*/
     char suits[4] = {'D','H','C','S'};
     int game_state = 0;
-    string entity_list[4] = {"bot 1","bot 2","bot 3","player"};
+    string entity_list_3[4] = {"bot 1","bot 2","bot 3","player"};
+    string entity_list_4[5] = {"bot 1","bot 2","bot 3","bot 4","player"};
+    string entity_list_5[6] = {"bot 1","bot 2","bot 3","bot 4","bot 5","player"};
 
     card cards[52];
 
@@ -921,11 +923,11 @@ class POKER {
             bank_array[2] = AI3.bank;
             bank_array[3] = player_bank;
             
-            sort(bank_array);
-            int zeroes = count_zeroes(bank_array);
+            sort(bank_array,4);
+            int zeroes = count_zeroes(bank_array,4);
             if (zeroes == 3){
                 player_playing = false;
-                cout<<entity_list[3]<<" wins with "<<bank_array[3]<<" in the bank!";
+                cout<<entity_list_3[3]<<" wins with "<<bank_array[3]<<" in the bank!";
             }
             else if (player_bank < 10){
                 cout<<"Game over! You went bankrupt!"<<endl;
@@ -946,9 +948,9 @@ class POKER {
                     temp = arr[i];
                     arr[i] = arr[i+1];
                     arr[i+1] = temp;
-                    temp2 = entity_list[i];
-                    entity_list[i] = entity_list[i+1];
-                    entity_list[i] = temp2; 
+                    temp2 = entity_list_3[i];
+                    entity_list_3[i] = entity_list_3[i+1];
+                    entity_list_3[i] = temp2; 
                     swaps = true;
                 }
             }
