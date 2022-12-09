@@ -93,7 +93,7 @@ class BOTAI{
                 }  
             }
 
-            void confidencerating(card cards_on_table[5]) 
+    void confidencerating(card cards_on_table[5]) 
     //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
         //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
@@ -160,7 +160,7 @@ class BOTAI{
 
             for (int counter3i = counter3+1; counter3i<numofcards; counter3i++)
             {
-                if (sortedarray1[counter3].Number == sortedarray1[counter3i].Number )
+                if (sortedarray1[counter3].suit == sortedarray1[counter3i].suit )
                 {
                     samesuit++;
                 }
@@ -205,7 +205,7 @@ class BOTAI{
                 }
             }
             
-            i+=samecards;
+            i= i + samecards;
             //move away from the same pair cards;
             if (samecards!= 0)
             {
@@ -259,7 +259,7 @@ class BOTAI{
                         break;
                     }
                 }
-                if (numbersinrow = flush_val)
+                if (numbersinrow == flush_val)
                 {
                     straight = true;
                 }
@@ -317,7 +317,7 @@ class BOTAI{
 
         random_device rd;
         mt19937 gen(rd());
-        uniform_int_distribution<> distr1(50,70);
+        uniform_int_distribution<> distr1(30,70);
         //adding a bit of randomness yes.
         uniform_int_distribution<> distr2((confidenceperc - (confidenceperc/4)),confidenceperc);
         //MORE SPICE BUT LESS INTESE TO ENSURE BOT DOSENT ALWAYS FOLD.
@@ -325,7 +325,7 @@ class BOTAI{
         int number1 = distr1(gen);
         int number2 = distr2(gen);
 
-        confidence = ((number1 + confidenceperc)/2);
+        confidence = ((number1 + confidenceperc + number2)/3);
 
         if (royal_flush) //not related to confidence, just makes code more optimized.
         {biggest_threat = 9;}
@@ -387,7 +387,48 @@ class POKER {
 
     card cards[52];
 
-    int player_threat(card cards_on_table[5], card hand[]) 
+    void sort_number(card cards[5], const int numofcards)
+            { 
+                for (int i = 0; i<numofcards; i++)                        
+                {
+                    for (int ii = i + 1; ii<numofcards; ii++)
+                    {
+                        if (cards[i].Number > cards[ii].Number)
+                        {
+                            card temp = cards[i];
+                            cards[i] = cards[ii];
+                            cards[ii]  = temp;
+                        }
+                    }
+                }
+            }
+
+    void sort_suit(card cards[5], const int numofcards)
+    {   
+        int x[7] = {99};
+        for (int k = 0; k<numofcards; k++)                        
+        {
+            switch (cards[k].suit)
+            {
+            case 'D':
+                x[k] = 1;
+                break;
+            case 'H':
+                x[k] = 2;
+                break;
+            case 'S':
+                x[k] = 3;
+                break;
+            case 'C':
+                x[k] = 4;
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    int player_threat(card cards_on_table[5], card hand[2]) 
     //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
         //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
@@ -447,7 +488,7 @@ class POKER {
 
             for (int counter3i = counter3+1; counter3i<7; counter3i++)
             {
-                if (sortedarray1[counter3].Number == sortedarray1[counter3i].Number )
+                if (sortedarray1[counter3].suit == sortedarray1[counter3i].suit)
                 {
                     samesuit++;
                 }
@@ -546,7 +587,7 @@ class POKER {
                         break;
                     }
                 }
-                if (numbersinrow = flush_val)
+                if (numbersinrow == flush_val)
                 {
                     straight = true;
                 }
@@ -570,26 +611,25 @@ class POKER {
                 }
             }  
           
-
-            if (royal_flush) 
-            {return 9;}
-            else if (straight_flush)
-            {return 8;}
-            else if (four_of_a_kind)
-            {return 7;}
-            else if (full_house)
-            {return 6;}
-            else if (flush)
-            {return 5;}
-            else if (straight)
-            {return 4;}
-            else if (three_of_a_kind)
-            {return 3;}
-            else if (two_pair)
-            {return 2;}
-            else if (pair)
-            {return 1;}    
         }
+        if (royal_flush) 
+        {return 9;}
+        else if (straight_flush)
+        {return 8;}
+        else if (four_of_a_kind)
+        {return 7;}
+        else if (full_house)
+        {return 6;}
+        else if (flush)
+        {return 5;}
+        else if (straight)
+        {return 4;}
+        else if (three_of_a_kind)
+        {return 3;}
+        else if (two_pair)
+        {return 2;}
+        else if (pair)
+        {return 1;}    
     }
 
     card draw_card(){
@@ -617,6 +657,29 @@ class POKER {
         }
     }
 
+string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
+    {
+        int x[4] = {AI1_threat,AI2_threat,AI3_threat,player_threat};
+        string y[4] = {"bot 1","bot 2","bot 3","player"};
+        for (int i = 0; i<4; i++)       
+        {
+            for (int ii = i + 1; ii<4; ii++)
+            {
+                if (x[i] > x[ii])
+                {
+                    int temp = x[i];
+                    x[i] = x[ii];
+                    x[ii]  = temp;
+
+                    string temp2 = y[i];
+                    y[i] = y[ii];
+                    y[ii]  = temp;
+                }
+            }
+        }
+        return y[4];
+    }
+
     void main_game(){
         BOTAI AI1;
         BOTAI AI2;
@@ -642,7 +705,6 @@ class POKER {
                 cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
 
                 player_choice(isfold,pot,player_bank);
-                //Ai choices go here <-- I have no idea what is supposed to go here
 
                 AI1.numofcards = AI2.numofcards = AI3.numofcards = 2;
                 
@@ -685,7 +747,7 @@ class POKER {
                 cout<<"Your hand: ";
                 cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
                 
-                player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
+                player_choice(isfold,pot,player_bank);
                 
                 
                 AI1.numofcards = AI2.numofcards = AI3.numofcards = 5;
@@ -772,6 +834,8 @@ class POKER {
                 
                 player_choice(isfold,pot,player_bank);
                 
+                cout<<"money";
+                
                 AI1.numofcards = AI2.numofcards = AI3.numofcards = 7;
                 
                 AI1.confidencerating(dealer);
@@ -780,7 +844,9 @@ class POKER {
                 
                 if (!AI1.fold)
                 {
+                    cout<<"money";
                     AI1.folding();
+                    cout<<"mone";
                     if (!AI1.fold)
                     {
                         AI1.bank-=10;
@@ -789,7 +855,9 @@ class POKER {
                 }
                 if (!AI2.fold)
                 {
+                    cout<<"money";
                     AI2.folding();
+                    cout<<"mone";
                     if (!AI2.fold)
                     {
                         AI2.bank-=10;
@@ -798,27 +866,34 @@ class POKER {
                 }
                 if (!AI3.fold)
                 {
+                    cout<<"money";
                     AI3.folding();
+                    cout<<"mone";
                     if (!AI3.fold)
                     {
                         AI3.bank-=10;
                         pot+=10;
                     }
                 }
-
+                cout<<"moneYy";
                 string winner = who_won(AI1.biggest_threat,AI2.biggest_threat,AI3.biggest_threat,player_threat);
+                cout<<"\n money";
 
                 if (winner == "player"){
                     player_bank = player_bank + pot;
+                    cout<<"money";
                 }
                 else if (winner == "bot 1"){
                     AI1.bank = AI1.bank + pot;
+                    cout<<"money";
                 }
                 else if (winner == "bot 2"){
                     AI2.bank = AI2.bank + pot;
+                    cout<<"money";
                 }
                 else if (winner == "bot 3"){
                     AI2.bank = AI2.bank + pot;
+                    cout<<"money";
                 }
                 isround = false;
             }
@@ -837,28 +912,7 @@ class POKER {
         
     }
 
-    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
-    {
-        int x[4] = {AI1_threat,AI2_threat,AI3_threat,player_threat};
-        string y[4] = {"bot 1","bot 2","bot 3","player"};
-        for (int i = 0; i<4; i++)       
-        {
-            for (int ii = i + 1; ii<4; ii++)
-            {
-                if (x[i] > x[ii])
-                {
-                    int temp = x[i];
-                    x[i] = x[ii];
-                    x[ii]  = temp;
-
-                    string temp2 = y[i];
-                    y[i] = y[ii];
-                    y[ii]  = temp;
-                }
-            }
-        }
-        return y[4];
-    }
+    
     
     string sort(int arr[]){
         bool swaps = false;
