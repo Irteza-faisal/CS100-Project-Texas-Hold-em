@@ -413,13 +413,6 @@ class POKER {
         }
     }
 
-    void is_playing_Perhamps(bool &playing){
-        if(playing){
-           return; 
-        }
-        cout<<"";
-    }
-
     void main_game_3bots(){
         BOTAI AI1;
         BOTAI AI2;
@@ -441,9 +434,9 @@ class POKER {
 
                 AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
                 
-                cout<<"\t\t"<<pot<<endl;
-                cout<<player_hand[0].Number<<" "<<player_hand[0].suit<<endl;
-                cout<<player_hand[1].Number<<" "<<player_hand[1].suit<<endl;
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
 
                 player_choice(isfold,pot,player_bank);
                 //Ai choices go here <-- I have no idea what is supposed to go here
@@ -481,10 +474,13 @@ class POKER {
                         pot+=10;
                     }
                 }
-
+                
                 dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
-                cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
 
+                cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                cout<<"\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
+                cout<<"Your hand: ";
+                cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
                 
                 player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
                 
@@ -604,7 +600,7 @@ class POKER {
 
 
 
-                 
+                isfold = false;
             }
         }
         
