@@ -923,8 +923,8 @@ class POKER {
             bank_array[2] = AI3.bank;
             bank_array[3] = player_bank;
             
-            sort(bank_array,4);
-            int zeroes = count_zeroes(bank_array,4);
+            sort(bank_array);
+            int zeroes = count_zeroes(bank_array);
             if (zeroes == 3){
                 player_playing = false;
                 cout<<entity_list_3[3]<<" wins with "<<bank_array[3]<<" in the bank!";
