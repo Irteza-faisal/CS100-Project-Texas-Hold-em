@@ -321,7 +321,7 @@ void confidencerating(card cards_on_table[5])
 
         random_device rd;
         mt19937 gen(rd());
-        uniform_int_distribution<> distr1(0,99);
+        uniform_int_distribution<> distr1(50,70);
         //adding a bit of randomness yes.
         uniform_int_distribution<> distr2((confidenceperc - (confidenceperc/4)),confidenceperc);
         //MORE SPICE BUT LESS INTESE TO ENSURE BOT DOSENT ALWAYS FOLD.
@@ -329,7 +329,7 @@ void confidencerating(card cards_on_table[5])
         int number1 = distr1(gen);
         int number2 = distr2(gen);
 
-        confidence = ((number1 + confidenceperc + number2)/3);
+        confidence = ((number1 + confidenceperc)/2);
 
         if (royal_flush) //not related to confidence, just makes code more optimized.
         {biggest_threat = 9;}
@@ -418,6 +418,7 @@ class POKER {
         BOTAI AI2;
         BOTAI AI3;
         bool isgame = true;
+        cout<<"aaaa\n";
         bool player_playing = true;
         int player_bank= 500;
         while (isgame && player_playing)
@@ -427,11 +428,13 @@ class POKER {
             bool isfold = false;
             int pot = 0;
             card dealer[5];
+            cout<<"aaaaa\n";
             init_deck();
+            cout<<"bbbbbbb\n";
             while (isround)
             {
                 card player_hand[2] = {draw_card(),draw_card()};
-
+                cout<<"aaaa\n";
                 AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());
                 
                 cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
