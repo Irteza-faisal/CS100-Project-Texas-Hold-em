@@ -9,10 +9,14 @@ typedef struct {
         bool exists = true;
 }card;
 
+random_device rd;
+mt19937 gen(rd());
+uniform_int_distribution<> distr(0,51);
+
 class BOTAI{
         public:
             card hand[2];
-            int bank = 5000;
+            int bank = 500;
             //amount of money bot/player starts with
             
             int confidence;
@@ -380,21 +384,17 @@ class POKER {
     int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,2,3,4,5,6,7,8,9,10,J,Q,K*/
     char suits[4] = {'D','H','C','S'};
     int game_state = 0;
-    bool player_playing = false;
     /*int Initial_game_states[3] = {1,2,-1}; Defines initial game states of Start game, Rules, Exit game, 1 starts game, 2 is rules, -1 Exit game*/
 
     /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
 
     card cards[52];
 
+
     card draw_card(){
-        random_device rd;
-        mt19937 gen(rd());
-        uniform_int_distribution<> distr(0,51);
         int card_index = distr(gen);
         while (!(cards[card_index].exists)){
-            int card_index = distr(gen);
-            cout<<"idfk";
+            card_index = distr(gen);
         }
         cards[card_index].exists=false;
         return cards[card_index]; 
@@ -427,9 +427,10 @@ class POKER {
         bool isgame = true;
         cout<<"aaaa\n";
         bool player_playing = true;
+        int player_bank= 500;
         while (isgame && player_playing)
         {
-            int player_bank= 5000;
+            
             bool isround = true;
             bool isfold = false;
             int pot = 0;
@@ -487,9 +488,9 @@ class POKER {
                 dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
                 cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
 
-                if (!isfold){
-                    player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
-                }
+                
+                player_choice(isfold,pot,player_bank); //isfold?isfold? ISFOLD??????? AAAAAAAAAAAAAAAAAAAAA
+                
                 
                 AI1.numofcards = AI2.numofcards = AI3.numofcards = 5;
                 
@@ -528,9 +529,8 @@ class POKER {
                 dealer[3]=draw_card();
                 cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
 
-                if (!isfold){
-                    player_choice(isfold,pot,player_bank);
-                }
+                player_choice(isfold,pot,player_bank);
+
                 AI1.numofcards = AI2.numofcards = AI3.numofcards = 6;
                 
                 AI1.confidencerating(dealer);
@@ -568,9 +568,9 @@ class POKER {
                 dealer[4]=draw_card();
                 cout<<"\t\t"<<pot<<endl;cout<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
 
-                if (!isfold){
-                    player_choice(isfold,pot,player_bank);
-                }
+                
+                player_choice(isfold,pot,player_bank);
+                
                 AI1.numofcards = AI2.numofcards = AI3.numofcards = 7;
                 
                 AI1.confidencerating(dealer);
@@ -609,7 +609,6 @@ class POKER {
 
                  
             }
-            is_playing_Perhamps(player_playing);
         }
         
     }
@@ -639,21 +638,23 @@ class POKER {
 
     void player_choice(bool &fold, int &pot, int &player_bank){
         int choice = 0;
-        cout<<"What do you wish to do sir?"<<endl;
-        cout<<"1-Bet."<<"2-Fold"<<endl;
-        do{ 
-            cin.clear();
-            cout<<"-->";
-            cin>>choice;
-        }while(choice<=0 || choice >2);
+        if (!fold){
+            cout<<"What do you wish to do sir?"<<endl;
+            cout<<"1-Bet."<<"2-Fold"<<endl;
+            do{ 
+                cin.clear();
+                cout<<"-->";
+                cin>>choice;
+            }while(choice != 1 && choice != 2);
 
-        if (choice == 1){
-            pot += 10;
-            player_bank -= 10;
+            if (choice == 2){
+                fold = true;
+                return;
+            }
+            pot = pot + 10;
+            player_bank = player_bank - 10;
+            
         } 
-        else{
-            fold = true;
-        }
     }
 
     void rules(){
