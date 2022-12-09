@@ -1659,7 +1659,7 @@ class POKER {
         }while(swaps);
     }
 
-     void sort_2(int arr[]){
+    void sort_2(int arr[]){
         bool swaps = false;
         int temp; string temp2;
         
@@ -1680,7 +1680,7 @@ class POKER {
         }while(swaps);
     }
 
-     void sort_3(int arr[]){
+    void sort_3(int arr[]){
         bool swaps = false;
         int temp; string temp2;
         
@@ -1733,6 +1733,7 @@ class POKER {
 
     void player_choice(bool &fold, int &pot, int &player_bank){
         int choice = 0;
+        bool fail;
         if (player_bank < 10){
             fold = true;
             return;
@@ -1741,9 +1742,19 @@ class POKER {
             cout<<"What do you wish to do sir?"<<endl;
             cout<<"1-Bet."<<"2-Fold"<<endl;
             do{ 
-                cin.clear();
+                
                 cout<<"-->";
                 cin>>choice;
+                if (cin.fail())
+                {
+                    cin.clear();
+                    cin.ignore(100000,'\n');
+                    fail = true;
+                    cout<<"invalid input, try again\n";
+                }
+                else{
+                    fail = false;
+                }
             }while(choice != 1 && choice != 2);
 
             if (choice == 2){
@@ -1827,7 +1838,7 @@ class POKER {
 
     void choose_bots(){
         int num_of_bots;
-        cout<<"\nHow many bots do you want?";
+        cout<<"\nHow many bots do you want?\n";
         cout<<"3?\n4?\n5?\n";
         do{
             cin.clear();
@@ -1849,11 +1860,21 @@ class POKER {
     void INIT(){
         cout<<setw(125)<<"<----WELCOME TO POKER TEXAS HOLD'EM---->\n";
         cout<<"1:Start Game.\n2:Rules.\n-1:Exit.\n";
+        bool fail;
         do{
-            cin.clear();
             cout<<"-->";
             cin>>game_state;
-        }while(game_state < -1 || cin.fail() || game_state > 2);
+            if (cin.fail())
+            {
+            cin.clear();
+            cin.ignore(100000,'\n');
+            fail = true;
+            cout<<"invalid input, try again\n";
+            }
+            else{
+            fail = false;
+            }
+        }while(game_state != 1 && game_state != 2);
         change_gamestate_mainmenu();
 
     }
