@@ -686,7 +686,66 @@ class POKER {
         }
         string ret = y[0];
         return ret;
+    } 
+    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int AI4_threat, int player_threat)//overloadedfor4
+    {
+        int x[4];
+        x[0] = AI1_threat;
+        x[1] = AI2_threat;
+        x[2] = AI3_threat;
+        x[3] = AI4_threat;
+        x[4] = player_threat;
+
+        string y[5] = {"bot 1","bot 2","bot 3","bot4","player"};
+        for (int i = 0; i<5; i++)       
+        {
+            for (int ii = i + 1; ii<4; ii++)
+            {
+                if (x[i] <= x[ii])
+                {
+                    int temp = x[i];
+                    x[i] = x[ii];
+                    x[ii]  = temp;
+
+                    string temp2 = y[i];
+                    y[i] = y[ii];
+                    y[ii]  = temp2;
+                }
+            }
+        }
+        string ret = y[0];
+        return ret;
     }
+    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int AI4_threat, int AI5_threat, int player_threat)//overloadedfor5
+        {
+            int x[6];
+            x[0] = AI1_threat;
+            x[1] = AI2_threat;
+            x[2] = AI3_threat;
+            x[3] = AI4_threat;
+            x[4] = AI5_threat;
+            x[5] = player_threat;
+
+            string y[6] = {"bot 1","bot 2","bot 3","bot 4","bot 5","player"};
+            for (int i = 0; i<6; i++)       
+            {
+                for (int ii = i + 1; ii<4; ii++)
+                {
+                    if (x[i] <= x[ii])
+                    {
+                        int temp = x[i];
+                        x[i] = x[ii];
+                        x[ii]  = temp;
+
+                        string temp2 = y[i];
+                        y[i] = y[ii];
+                        y[ii]  = temp2;
+                    }
+                }
+            }
+            string ret = y[0];
+            return ret;
+        }
 
     string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int AI4_threat, int player_threat)//overloadedfor4
     {
@@ -998,6 +1057,304 @@ class POKER {
         
     }
  
+    void main_game_4bots(){
+            
+            BOTAI AI1;
+            BOTAI AI2;
+            BOTAI AI3;
+            BOTAI AI4;
+
+            int player_threat;
+            bool isgame = true;
+            bool player_playing = true;
+            int player_bank= 100;
+            while (player_playing)
+            {
+                bool isround = true;
+                bool isfold = false;
+                int pot = 0;
+                
+                card dealer[5];
+                
+                init_deck();
+            
+                while (isround)
+                {
+                    card player_hand[2] = {draw_card(),draw_card()};
+
+                    AI1.fold = AI2.fold = AI3.fold = AI4.fold = false;
+                
+                    AI1.assign_hand(draw_card(),draw_card());AI2.assign_hand(draw_card(),draw_card());AI3.assign_hand(draw_card(),draw_card());AI4.assign_hand(draw_card(),draw_card());
+                    
+                    cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                    cout<<"Your hand: ";
+                    cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit;
+                    cout<<"   Your bank: "<<player_bank<<endl;
+
+                    player_choice(isfold,pot,player_bank);
+
+                    AI1.numofcards = AI2.numofcards = AI3.numofcards = AI4.numofcards = 2;
+                    
+                    AI1.confidencerating(dealer);
+                    AI2.confidencerating(dealer);
+                    AI3.confidencerating(dealer);
+                    AI4.confidencerating(dealer);
+                    
+
+                    if (!AI1.fold)
+                    {
+                        AI1.folding();
+                        if (!AI1.fold)
+                        {
+                            AI1.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI2.fold)
+                    {
+                        AI2.folding();
+                        if (!AI2.fold)
+                        {
+                            AI2.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI3.fold)
+                    {
+                        AI3.folding();
+                        if (!AI3.fold)
+                        {
+                            AI3.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI4.fold)
+                    {
+                        AI4.folding();
+                        if (!AI4.fold)
+                        {
+                            AI4.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    
+                    dealer[0]=draw_card();dealer[1]=draw_card();dealer[2]=draw_card(); // this looks disgusting
+
+                    cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                    cout<<"\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<endl;
+                    cout<<"Your hand: ";
+                    cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit;
+                    cout<<"   Your bank: "<<player_bank<<endl;
+                    
+                    player_choice(isfold,pot,player_bank);
+                    
+                    
+                    AI1.numofcards = AI2.numofcards = AI3.numofcards = AI4.numofcards = 5;
+                    
+                    AI1.confidencerating(dealer);
+                    AI2.confidencerating(dealer);
+                    AI3.confidencerating(dealer);
+                    AI4.confidencerating(dealer);
+                    
+                    if (!AI1.fold)
+                    {
+                        AI1.folding();
+                        if (!AI1.fold)
+                        {
+                            AI1.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI2.fold)
+                    {
+                        AI2.folding();
+                        if (!AI2.fold)
+                        {
+                            AI2.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI3.fold)
+                    {
+                        AI3.folding();
+                        if (!AI3.fold)
+                        {
+                            AI3.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI4.fold)
+                    {
+                        AI4.folding();
+                        if (!AI4.fold)
+                        {
+                            AI4.bank-=10;
+                            pot+=10;
+                        }
+                    }
+
+                    dealer[3]=draw_card();
+                    cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                    cout<<"\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<endl;
+                    cout<<"Your hand: ";
+                    cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit;
+                    cout<<"   Your bank: "<<player_bank<<endl;
+
+                    player_choice(isfold,pot,player_bank);
+
+                    AI1.numofcards = AI2.numofcards = AI3.numofcards = 6;
+                    
+                    AI1.confidencerating(dealer);
+                    AI2.confidencerating(dealer);
+                    AI3.confidencerating(dealer);
+                    AI4.confidencerating(dealer);
+                    
+
+                    if (!AI1.fold)
+                    {
+                        AI1.folding();
+                        if (!AI1.fold)
+                        {
+                            AI1.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI2.fold)
+                    {
+                        AI2.folding();
+                        if (!AI2.fold)
+                        {
+                            AI2.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI3.fold)
+                    {
+                        AI3.folding();
+                        if (!AI3.fold)
+                        {
+                            AI3.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI4.fold)
+                    {
+                        AI4.folding();
+                        if (!AI4.fold)
+                        {
+                            AI4.bank-=10;
+                            pot+=10;
+                        }
+                    }
+
+                    dealer[4]=draw_card();
+                    cout<<"\t\t\t"<<"Pot -> "<<pot<<endl;
+                    cout<<"\t\tDealer Hand -> "<<dealer[0].Number<<dealer[0].suit<<" "<<dealer[1].Number<<dealer[1].suit<<" "<<dealer[2].Number<<dealer[2].suit<<" "<<dealer[3].Number<<dealer[3].suit<<" "<<dealer[4].Number<<dealer[4].suit<<endl;
+                    cout<<"Your hand: ";
+                    cout<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit;
+                    cout<<"   Your bank: "<<player_bank<<endl;
+                    
+                    player_choice(isfold,pot,player_bank);
+                    
+                    
+                    
+                    AI1.numofcards = AI2.numofcards = AI3.numofcards = 7;
+                    
+                    AI1.confidencerating(dealer);
+                    AI2.confidencerating(dealer);
+                    AI3.confidencerating(dealer);
+                    AI4.confidencerating(dealer);
+                    
+                    
+                    if (!AI1.fold)
+                    {
+                        AI1.folding();
+                        if (!AI1.fold)
+                        {
+                            AI1.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI2.fold)
+                    {
+                        AI2.folding();
+                        if (!AI2.fold)
+                        {
+                            AI2.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI3.fold)
+                    {
+
+                        AI3.folding();
+                        if (!AI3.fold)
+                        {
+                            AI3.bank-=10;
+                            pot+=10;
+                        }
+                    }
+                    if (!AI4.fold)
+                    {
+                        AI4.folding();
+                        if (!AI4.fold)
+                        {
+                            AI4.bank-=10;
+                            pot+=10;
+                        }
+                    }
+
+                    player_threat = player_threat_calc(dealer,player_hand);
+                    if (isfold){
+                        player_threat= 0;
+                    }
+
+                    string winner = who_won(AI1.biggest_threat,AI2.biggest_threat,AI3.biggest_threat,player_threat);
+
+                    if (winner == "player"){
+                        player_bank = player_bank + pot;
+                        cout<<"player won";
+                        cout<<"\t\t\t"<<player_hand[0].Number<<player_hand[0].suit<<" "<<player_hand[1].Number<<player_hand[1].suit<<endl;
+                    }
+                    else if (winner == "bot 1"){
+                        AI1.bank = AI1.bank + pot;
+                        cout<<"bot 1 won";
+                        cout<<"\t\t\t"<<AI1.hand[0].Number<<AI1.hand[0].suit<<" "<<AI1.hand[1].Number<<AI1.hand[1].suit<<endl;
+                    }
+                    else if (winner == "bot 2"){
+                        AI2.bank = AI2.bank + pot;
+                        cout<<"bot 2 won";
+                        cout<<"\t\t\t"<<AI1.hand[0].Number<<AI1.hand[0].suit<<" "<<AI1.hand[1].Number<<AI1.hand[1].suit<<endl;
+                    }
+                    else if (winner == "bot 3"){
+                        AI2.bank = AI2.bank + pot;
+                        cout<<"bot 3 won";
+                        cout<<"\t\t\t"<<AI1.hand[0].Number<<AI1.hand[0].suit<<" "<<AI1.hand[1].Number<<AI1.hand[1].suit<<endl;
+                    }
+                    isround = false;
+                }
+                int bank_array[5];
+                bank_array[0] = AI1.bank;
+                bank_array[1] = AI2.bank;
+                bank_array[2] = AI3.bank;
+                bank_array[3] = AI3.bank;
+                bank_array[4] = player_bank;
+                
+                sort_2(bank_array);
+                int zeroes = count_zeroes_2(bank_array);
+                if (zeroes == 4){
+                    player_playing = false;
+                    cout<<entity_list_4[4]<<" wins with "<<bank_array[4]<<" in the bank!";
+                }
+                else if (player_bank < 10){
+                    cout<<"Game over! You went bankrupt!"<<endl;
+                    player_playing = false;
+                }
+            }
+            
+        }
+    
+
     void main_game_5bots(){
         BOTAI AI1;
         BOTAI AI2;

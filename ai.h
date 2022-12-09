@@ -659,7 +659,7 @@ class POKER {
         }
     }
 
-    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)//func overload later
+    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
     {
         int x[4];
         x[0] = AI1_threat;
