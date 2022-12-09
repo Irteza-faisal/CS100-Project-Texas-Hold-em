@@ -883,19 +883,19 @@ class POKER {
 
                 if (winner == "player"){
                     player_bank = player_bank + pot;
-                    cout<<"money4";
+                    cout<<"player won";
                 }
                 else if (winner == "bot 1"){
                     AI1.bank = AI1.bank + pot;
-                    cout<<"money3";
+                    cout<<"bot 1 won";
                 }
                 else if (winner == "bot 2"){
                     AI2.bank = AI2.bank + pot;
-                    cout<<"money2";
+                    cout<<"bot 2 won";
                 }
                 else if (winner == "bot 3"){
                     AI2.bank = AI2.bank + pot;
-                    cout<<"money1";
+                    cout<<"bot 3 won";
                 }
                 isround = false;
             }
