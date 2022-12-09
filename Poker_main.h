@@ -686,66 +686,7 @@ class POKER {
         }
         string ret = y[0];
         return ret;
-    } 
-    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int AI4_threat, int player_threat)//overloadedfor4
-    {
-        int x[4];
-        x[0] = AI1_threat;
-        x[1] = AI2_threat;
-        x[2] = AI3_threat;
-        x[3] = AI4_threat;
-        x[4] = player_threat;
-
-        string y[5] = {"bot 1","bot 2","bot 3","bot4","player"};
-        for (int i = 0; i<5; i++)       
-        {
-            for (int ii = i + 1; ii<4; ii++)
-            {
-                if (x[i] <= x[ii])
-                {
-                    int temp = x[i];
-                    x[i] = x[ii];
-                    x[ii]  = temp;
-
-                    string temp2 = y[i];
-                    y[i] = y[ii];
-                    y[ii]  = temp2;
-                }
-            }
-        }
-        string ret = y[0];
-        return ret;
     }
-    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int AI4_threat, int AI5_threat, int player_threat)//overloadedfor5
-        {
-            int x[6];
-            x[0] = AI1_threat;
-            x[1] = AI2_threat;
-            x[2] = AI3_threat;
-            x[3] = AI4_threat;
-            x[4] = AI5_threat;
-            x[5] = player_threat;
-
-            string y[6] = {"bot 1","bot 2","bot 3","bot 4","bot 5","player"};
-            for (int i = 0; i<6; i++)       
-            {
-                for (int ii = i + 1; ii<4; ii++)
-                {
-                    if (x[i] <= x[ii])
-                    {
-                        int temp = x[i];
-                        x[i] = x[ii];
-                        x[ii]  = temp;
-
-                        string temp2 = y[i];
-                        y[i] = y[ii];
-                        y[ii]  = temp2;
-                    }
-                }
-            }
-            string ret = y[0];
-            return ret;
-        }
 
     string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int AI4_threat, int player_threat)//overloadedfor4
     {
