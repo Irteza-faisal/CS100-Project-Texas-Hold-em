@@ -384,6 +384,7 @@ class POKER {
     int Nums[13] = {1,2,3,4,5,6,7,8,9,10,11,12,13}; /*Nums and Suits define the Number of cards per suit (13) A,2,3,4,5,6,7,8,9,10,J,Q,K*/
     char suits[4] = {'D','H','C','S'};
     int game_state = 0;
+    string entity_list[4] = {"bot 1","bot 2","bot 3","player"};
     /*int Initial_game_states[3] = {1,2,-1}; Defines initial game states of Start game, Rules, Exit game, 1 starts game, 2 is rules, -1 Exit game*/
 
     /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
@@ -602,9 +603,32 @@ class POKER {
                     }
                 }
 
+                string winner = who_won(AI1.biggest_threat,AI2.biggest_threat,AI3.biggest_threat,play_threat<-to be added);
 
-
-                isfold = false;
+                if (winner == "player"){
+                    player_bank = player_bank + pot;
+                }
+                else if (winner == "bot 1"){
+                    AI1.bank = AI1.bank + pot;
+                }
+                else if (winner == "bot 2"){
+                    AI2.bank = AI2.bank + pot;
+                }
+                else if (winner == "bot 3"){
+                    AI2.bank = AI2.bank + pot;
+                }
+                isround = false;
+            }
+            int bank_array[4]={AI1.bank,AI2.bank,AI3.bank,player_bank};
+            sort(bank_array);
+            int zeroes = count_zeroes(bank_array);
+            if (zeroes == 3){
+                isgame = false;
+                cout<<entity_list[3]<<" wins with "<<bank_array[3]<<" in the bank!";
+            }
+            else if (player_bank == 0){
+                cout<<"Game over! You went bankrupt!"<<endl;
+                player_playing = false;
             }
         }
         
@@ -631,6 +655,36 @@ class POKER {
             }
         }
         return y[4];
+    }
+    
+    string sort(int arr[]){
+        bool swaps = false;
+        int temp; string temp2;
+        
+        do{
+            swaps = false;
+            for (int i=0; i<3; i++){
+                if (arr[i] > arr[i+1]){
+                    temp = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = temp;
+                    temp2 = entity_list[i];
+                    entity_list[i] = entity_list[i+1];
+                    entity_list[i] = temp2; 
+                    swaps = true;
+                }
+            }
+
+        }while(swaps);
+    }
+
+    int count_zeroes(int arr[]){
+        int z = 0;
+        for (int i = 0; i<4; i++){
+            if (arr[i] == 0){
+                z++;
+            }
+        }
     }
 
     void player_choice(bool &fold, int &pot, int &player_bank){
