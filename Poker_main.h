@@ -93,7 +93,7 @@ class BOTAI{
                 }  
             }
 
-void confidencerating(card cards_on_table[5]) 
+            void confidencerating(card cards_on_table[5]) 
     //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
         //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
@@ -348,7 +348,7 @@ void confidencerating(card cards_on_table[5])
     }
 
 
-    void folding()
+            void folding()
     {
         if (confidence > 50)
         {
@@ -360,7 +360,7 @@ void confidencerating(card cards_on_table[5])
         }
     }
 
-    bool playing(const int bank, bool fold)
+            bool playing(const int bank, bool fold)
     {
         if ((bank< 10))
         //is this function nearly pointless? yes it is, but id rather not write these 4 lines again and again.
@@ -386,7 +386,7 @@ class POKER {
     /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
 
     card cards[52];
-    
+
     int player_threat(card cards_on_table[5], card hand[]) 
     //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
