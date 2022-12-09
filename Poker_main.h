@@ -9,10 +9,6 @@ typedef struct {
         bool exists = true;
 }card;
 
-random_device rd;
-mt19937 gen(rd());
-uniform_int_distribution<> distr(0,51);
-
 class BOTAI{
         public:
             card hand[2];
@@ -390,9 +386,216 @@ class POKER {
     /*int Start_sub_states[3] = {1,2,3}; Substates when in Start game to choose between number of players 1->3 2->4 3->5*/
 
     card cards[52];
+    
+    int player_threat(card cards_on_table[5], card hand[]) 
+    //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
+    {
+        //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
+        bool pair = false;
+        bool two_pair = false;
+        bool three_of_a_kind = false;
+        bool straight = false;
+        bool flush = false;
+        bool full_house = false;
+        bool four_of_a_kind = false;
+        bool straight_flush = false;
+        bool royal_flush = false;
 
+        card cards[7];
+
+        int temparraycounter = 0;
+
+        for (int ivegivenup = 0; ivegivenup<7; ivegivenup++)
+        {
+            if (ivegivenup<=1)
+            {
+            cards[ivegivenup] = hand[ivegivenup];
+            }
+            else
+            {
+                cards[ivegivenup] = cards_on_table[temparraycounter];
+                temparraycounter++;
+            }
+        }
+        
+        card sortedarray1[7];
+        //only exists to make my poor life easier
+        
+        card sortedarray2[7];
+        //only exists to make my poor life easier(2)
+        
+        int confidenceperc = 100;
+
+    for (int iiiii = 0; iiiii<7; iiiii++ )
+            {
+             confidenceperc= (+confidenceperc -7);
+            }
+        
+        copy (cards, cards + 7,sortedarray1);
+        copy (cards, cards + 7,sortedarray2);
+
+        sort_number(sortedarray1,7);
+        sort_suit(sortedarray2,7);
+
+        //flush finder 9000
+        int flush_val = 5;
+        //only exists to check 5 cards, or below 5 cards coz 5 cards needed for flush
+        
+        for (int counter3 ; counter3<7; counter3++)
+        {
+            int samesuit = 0;
+
+            for (int counter3i = counter3+1; counter3i<7; counter3i++)
+            {
+                if (sortedarray1[counter3].Number == sortedarray1[counter3i].Number )
+                {
+                    samesuit++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+            counter3+=samesuit;
+            //move away from the same suite cards;
+            if (samesuit == flush_val)
+            {
+                flush = true;
+            }
+        }
+
+
+        int samecards = 0;
+        //this number tells the number of cards that are the same, which dictates whether the ai has a pair, three of a kind, or four of a kind.
+        
+        int different_combos[5] = {0};
+        //this tell the number of combos that exist (2 pairs, straight, 3 in a row, 4 in a row etc)
+        
+        int counter2 = 0;
+        //this counter tells the actual number of times the loop below is used. its used in inserting values inside the different_combos arrray.
+        
+        for (int i = 0; i < 7; i++)
+        //i in this case dictates which card is being used to find a pair of. so cards[0] means finding pairs for card number 1;
+        {
+            samecards = 0;
+
+            for (int ii = i+1; ii<7; ii++)
+            {
+                if (sortedarray1[i].Number == sortedarray1[ii].Number )
+                {
+                    samecards++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            
+            i+=samecards;
+            //move away from the same pair cards;
+            if (samecards!= 0)
+            {
+                different_combos[counter2] = samecards+1;
+                counter2++;
+                //increments to the next point in array for same cards.
+            }
+        }
+        
+        if (counter2>0)
+        //most programmers (including myself) will hate me for the monstrosity that follows, but believe me I just didnt feel like rewriting the entire code again. debugging moment indeed.
+        {
+            counter2--;
+            //so array counter val actually points at the correct limit.
+            for (int iii = 0; iii<=counter2; iii++)
+            {
+                //time to be inefficient and make a tower of if statements les gooooooooo
+                switch (different_combos[iii])
+                {
+                case 2:
+                    if (!pair)
+                    {
+                        pair = true; 
+                    }
+                    else
+                    {
+                        two_pair = true;
+                    }
+                    break;
+                case 3:
+                    three_of_a_kind = true;
+                    break;
+                case 4:
+                    four_of_a_kind = true;
+                    break;
+                default:
+                    break;
+                }
+            }
+            for (int counter4 = 0 ; counter4<7; counter4++)
+            {
+                int numbersinrow;
+                for (int counter4i = counter4+1; counter4i<flush_val; counter4i++)
+                {
+                    if (cards[counter4].Number == ((cards[counter4i].Number)+1))
+                    {
+                        numbersinrow++;
+                    }
+                    else;
+                    {
+                        break;
+                    }
+                }
+                if (numbersinrow = flush_val)
+                {
+                    straight = true;
+                }
+            }
+
+            if (three_of_a_kind && pair)
+            {
+                full_house = true;
+                ;
+            }
+            if (straight && flush)
+            {
+                if ((sortedarray1[1].Number == 10) && (sortedarray1[0].Number == 1))
+                {
+                    royal_flush = true;
+            
+                }
+                else
+                {
+                    straight_flush = true;
+                }
+            }  
+          
+
+            if (royal_flush) 
+            {return 9;}
+            else if (straight_flush)
+            {return 8;}
+            else if (four_of_a_kind)
+            {return 7;}
+            else if (full_house)
+            {return 6;}
+            else if (flush)
+            {return 5;}
+            else if (straight)
+            {return 4;}
+            else if (three_of_a_kind)
+            {return 3;}
+            else if (two_pair)
+            {return 2;}
+            else if (pair)
+            {return 1;}    
+        }
+    }
 
     card draw_card(){
+        random_device rd;
+        mt19937 gen(rd());
+        uniform_int_distribution<> distr(0,51);
         int card_index = distr(gen);
         while (!(cards[card_index].exists)){
             card_index = distr(gen);
@@ -414,7 +617,7 @@ class POKER {
         }
     }
 
-    void main_game_3bots(){
+    void main_game(){
         BOTAI AI1;
         BOTAI AI2;
         BOTAI AI3;
@@ -423,7 +626,7 @@ class POKER {
         int player_bank= 500;
         while (isgame && player_playing)
         {
-            
+            int player_threat;
             bool isround = true;
             bool isfold = false;
             int pot = 0;
@@ -603,7 +806,7 @@ class POKER {
                     }
                 }
 
-                string winner = who_won(AI1.biggest_threat,AI2.biggest_threat,AI3.biggest_threat,play_threat<-to be added);
+                string winner = who_won(AI1.biggest_threat,AI2.biggest_threat,AI3.biggest_threat,player_threat);
 
                 if (winner == "player"){
                     player_bank = player_bank + pot;
@@ -761,7 +964,7 @@ class POKER {
 
     void change_gamestate_mainmenu(){
         if (game_state == 1){
-            main_game_3bots();
+            main_game();
         }
         else if (game_state == 2){
             rules();
