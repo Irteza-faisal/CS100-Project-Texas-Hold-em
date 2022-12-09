@@ -428,7 +428,7 @@ class POKER {
         }
     }
 
-    int player_threat(card cards_on_table[5], card hand[2]) 
+    int player_threat_calc(card cards_on_table[5], card hand[2]) 
     //cards 1 to 7, where card 0 and 1 are the cards dealt, cards 2, 3, 4, 5, 6, 7 are the cards on the table. Num of cards ensures that confidence level is  only taken with the cards available on the table at that moment.   
     {
         //opted to use booleans instead of one massive string. why? because i forgot i could use a string system. but eh. Im a fool if I dont use the bools
@@ -657,7 +657,7 @@ class POKER {
         }
     }
 
-string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
+    string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
     {
         int x[4] = {AI1_threat,AI2_threat,AI3_threat,player_threat};
         string y[4] = {"bot 1","bot 2","bot 3","player"};
@@ -875,6 +875,8 @@ string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat
                         pot+=10;
                     }
                 }
+
+                player_threat = player_threat_calc(dealer,player_hand);
                 cout<<"moneYy";
                 string winner = who_won(AI1.biggest_threat,AI2.biggest_threat,AI3.biggest_threat,player_threat);
                 cout<<"\n money";
