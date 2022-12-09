@@ -659,13 +659,18 @@ class POKER {
 
 string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat)
     {
-        int x[4] = {AI1_threat,AI2_threat,AI3_threat,player_threat};
+        int x[4];
+        x[0] = AI1_threat;
+        x[1] = AI2_threat;
+        x[2] = AI3_threat;
+        x[3] = player_threat;
+
         string y[4] = {"bot 1","bot 2","bot 3","player"};
         for (int i = 0; i<4; i++)       
         {
             for (int ii = i + 1; ii<4; ii++)
             {
-                if (x[i] > x[ii])
+                if (x[i] <= x[ii])
                 {
                     int temp = x[i];
                     x[i] = x[ii];
@@ -673,11 +678,12 @@ string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat
 
                     string temp2 = y[i];
                     y[i] = y[ii];
-                    y[ii]  = temp;
+                    y[ii]  = temp2;
                 }
             }
         }
-        return y[4];
+        string ret = y[0];
+        return ret;
     }
 
     void main_game(){
@@ -834,7 +840,7 @@ string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat
                 
                 player_choice(isfold,pot,player_bank);
                 
-                cout<<"money";
+                
                 
                 AI1.numofcards = AI2.numofcards = AI3.numofcards = 7;
                 
@@ -844,9 +850,7 @@ string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat
                 
                 if (!AI1.fold)
                 {
-                    cout<<"money";
                     AI1.folding();
-                    cout<<"mone";
                     if (!AI1.fold)
                     {
                         AI1.bank-=10;
@@ -855,9 +859,7 @@ string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat
                 }
                 if (!AI2.fold)
                 {
-                    cout<<"money";
                     AI2.folding();
-                    cout<<"mone";
                     if (!AI2.fold)
                     {
                         AI2.bank-=10;
@@ -866,34 +868,31 @@ string who_won(int AI1_threat, int AI2_threat, int AI3_threat, int player_threat
                 }
                 if (!AI3.fold)
                 {
-                    cout<<"money";
+
                     AI3.folding();
-                    cout<<"mone";
                     if (!AI3.fold)
                     {
                         AI3.bank-=10;
                         pot+=10;
                     }
                 }
-                cout<<"moneYy";
                 string winner = who_won(AI1.biggest_threat,AI2.biggest_threat,AI3.biggest_threat,player_threat);
-                cout<<"\n money";
 
                 if (winner == "player"){
                     player_bank = player_bank + pot;
-                    cout<<"money";
+                    cout<<"money4";
                 }
                 else if (winner == "bot 1"){
                     AI1.bank = AI1.bank + pot;
-                    cout<<"money";
+                    cout<<"money3";
                 }
                 else if (winner == "bot 2"){
                     AI2.bank = AI2.bank + pot;
-                    cout<<"money";
+                    cout<<"money2";
                 }
                 else if (winner == "bot 3"){
                     AI2.bank = AI2.bank + pot;
-                    cout<<"money";
+                    cout<<"money1";
                 }
                 isround = false;
             }
